@@ -3,7 +3,7 @@
  * Plugin Name: Simple Stats for WooCommerce
  * Plugin URI: https://github.com/ondrejd/odwp-wc-simplestats
  * Description: Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: Ondřej Doněk
  * Author URI: http://ondrejdonek.blogspot.cz/
  * Requires at least: 4.3
@@ -19,6 +19,7 @@
 
 
 defined('ODWP_WC_SIMPLESTATS') || define('ODWP_WC_SIMPLESTATS', 'odwp-wc-simplestats');
+defined('ODWP_WC_SIMPLESTATS_FILE') || define('ODWP_WC_SIMPLESTATS_FILE', __FILE__);
 
 
 if (!function_exists('odwpwcss_check_requirements')):
@@ -94,84 +95,16 @@ function odwpwcss_minreq_error() {
 endif;
 
 
-if (!class_exists('ODWP_WC_SimpleStats')):
+if (!function_exists('odwpwcss_uninstall')):
 
 /**
- * Main class of the plug-in.
- * 
- * @since 0.1.0
+ * Shows error in WP administration that minimum requirements were not met.
+ *
+ * @internal
+ * @return void
+ * @since 0.1.1
  */
-class ODWP_WC_SimpleStats {  
-  const ID = 'odwp-wc-simplestats';
-  const VERSION = '0.1.0';
-
-  /**
-   * Constructor.
-   *
-   * @return void
-   * @since 0.1.0
-   */
-  public function __construct() {
-    register_activation_hook(__FILE__, array($this, 'activate'));
-    register_uninstall_hook(__FILE__, array($this, 'uninstall'));
-
-    add_action('plugins_loaded', array($this, 'init'));
-  } // end __construct()
-
-  /**
-   * Initialize plug-in.
-   *
-   * @return void
-   * @since 0.1.0
-   */
-  public function init() {
-    if (class_exists('WC_Integration')) {
-      include_once 'src/ODWP_WC_SimpleStats_Integration.php';
-      add_filter('woocommerce_integrations', array($this, 'add_integration'));
-    } else {
-      //add_action('admin_notices', )
-    }
-  } // end init()
-
-  /**
-   * Add a new integration to WooCommerce.
-   *
-   * @param array $integrations
-   * @return aray
-   */
-  public function add_integration($integrations) {
-    $integrations[] = 'ODWP_WC_SimpleStats_Integration';
-    return $integrations;
-  } // end add_integration($integrations)
-
-  /**
-   * Activates the plug-in.
-   *
-   * @global wpdb $wpdb
-   * @return void
-   * @since 0.1.0
-   */
-  public function activate() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'simplestats';
-    $sql = '' .
-      'CREATE TABLE IF NOT EXISTS `'.$table_name.'` (' .
-      '  `ID` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY , ' .
-      '  `post_ID` BIGINT(20) UNSIGNED NULL , ' .
-      '  `viewed` BIGINT(20) NOT NULL DEFAULT 0 , ' .
-      '  `selled` BIGINT(20) NOT NULL DEFAULT 0 ' .
-      ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;';
-    $wpdb->query($sql);
-  } // end activate()
-
-  /**
-   * Uninstall.
-   *
-   * @global wpdb $wpdb
-   * @return void
-   * @since 0.1.0
-   */
-  public function uninstall() {
+function odwpwcss_uninstall() {
     if (!defined('WP_UNINSTALL_PLUGIN')) {
       return;
     }
@@ -179,13 +112,10 @@ class ODWP_WC_SimpleStats {
     global $wpdb;
     $table_name = $wpdb->prefix . 'simplestats';
     $wpdb->query('DROP TABLE `'.$table_name.'` ');
-  } // end uninstall()
-} // End of ODWP_WC_SimpleStats
+} // end odwpwcss_uninstall()
 
 endif;
 
-
-// ==========================================================================
 
 // Our plug-in is dependant on WooCommerce
 if (!odwpwcss_check_requirements()) {
@@ -199,6 +129,7 @@ if (!odwpwcss_check_requirements()) {
 }
 
 // Everything is OK - initialize the plugin
+include_once dirname(__FILE__).'/src/ODWP_WC_SimpleStats.php';
 
 /**
  * @var ODWP_WC_SimpleStats
