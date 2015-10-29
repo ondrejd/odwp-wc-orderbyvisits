@@ -19,9 +19,9 @@ if (!class_exists('WC_Integration_Demo_Integration')):
 class ODWP_WC_SimpleStats_Integration extends WC_Integration {
   /**
    * @since 0.1.0
-   * @var boolean $enable
+   * @var boolean $enable_odwpwccss
    */
-  protected $enable = false;
+  protected $enable_odwpwccss = false;
 
 	/**
 	 * Init and hook in the integration.
@@ -38,7 +38,7 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
 		$this->init_form_fields();
 		$this->init_settings();
 
-		$this->enable = $this->get_option('enable');
+		$this->enable_odwpwccss = $this->get_option('enable_odwpwccss');
 
 		add_action('woocommerce_update_options_integration_'. $this->id, array($this, 'process_admin_options'));
 		add_filter('woocommerce_settings_api_sanitized_fields_'.$this->id, array($this, 'sanitize_settings'));
@@ -52,12 +52,12 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'api_key' => array(
+			'enable_odwpwccss' => array(
 				'title'             => __('Enable simple stats', ODWP_WC_SIMPLESTATS),
 				'type'              => 'checkbox',
 				'description'       => __('Check if you want to start using <b>Simple Stats plugin for Woocommerce</b>.', ODWP_WC_SIMPLESTATS),
 				'desc_tip'          => true,
-				'default'           => true
+				'default'           => 'yes'
 			)
 		);
 	} // end init_form_fields()
@@ -71,11 +71,17 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
    * @since 0.1.0 
 	 */
 	public function sanitize_settings($settings) {
-		if (isset($settings) && !isset($settings['enable'])) {
-      $settings['enable'] = false;
+    $default = array('enable_odwpwccss' => 'no');
+
+    if (!is_array($settings)) {
+      return $default;
     }
 
-    return false;
+    if (!array_key_exists('enable_odwpwccss', $settings)) {
+      return $default;
+    }
+
+    return $settings;
 	}
 } // End of ODWP_WC_SimpleStats_Integration
 
