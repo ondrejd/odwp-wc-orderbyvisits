@@ -81,12 +81,12 @@ function odwpwcss_minreq_error() {
   echo ''.
     '<div id="'.ODWP_WC_SIMPLESTATS.'_message1" class="error notice is-dismissible">'.
       '<p>'.
-        __('The <b>Simple Stats Plugin for Woocommerce</b> plugin requires <b>WooCommerce</b> plugin installed and activated.</p>', ODWP_WC_SIMPLESTATS).
+        __('The <b>Simple Stats Plugin for WooCommerce</b> plugin requires <b>WooCommerce</b> plugin installed and activated.</p>', ODWP_WC_SIMPLESTATS).
       '</p>'.
     '</div>'.
     '<div id="'.ODWP_WC_SIMPLESTATS.'_message2" class="updated notice is-dismissible">'.
       '<p>'.
-        __('Plugin <b>Simple Stats Plugin for Woocommerce</b> was <b>deactivated</b>.', ODWP_WC_SIMPLESTATS).
+        __('Plugin <b>Simple Stats Plugin for WooCommerce</b> was <b>deactivated</b>.', ODWP_WC_SIMPLESTATS).
       '</p>'.
     '</div>';
 } // end odwpwcss_minreq_error()
@@ -187,7 +187,7 @@ endif;
 
 // ==========================================================================
 
-// Our plug-in is dependant on Woocommerce
+// Our plug-in is dependant on WooCommerce
 if (!odwpwcss_check_requirements()) {
   odwpwcss_deactivate_raw();
 

@@ -19,9 +19,9 @@ Main features:
 
 This section describes how to install the plugin and get it working.
 
-1. Upload plugin's folder `wp-woocommerce-simplestats-plugin` to the `/wp-content/plugins/` directory
+1. Upload plugin's folder `odwp-wc-simplestats` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. For other details see [plugin's home page](https://github.com/ondrejd/wp-woocommerce-simplestats-plugin)
+3. For other details see [plugin's home page](https://github.com/ondrejd/odwp-wc-simplestats)
 
 == Frequently Asked Questions ==
 
@@ -36,6 +36,8 @@ Because you can use them in various ways - for example custom ordering of produc
 == Screenshots ==
 
 1. `screenshot-1.png`
+2. `screenshot-2.png`
+3. `screenshot-3.png`
 
 == Changelog ==
 
