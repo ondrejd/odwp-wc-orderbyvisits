@@ -1,2 +1,4 @@
-# wp-woocommerce-simplestats-plugin
-Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products.
+# Simple Stats for WooCommerce
+
+Simple plugin for [WordPress](https://wordpress.org/) with [WooCommerce](https://wordpress.org/plugins/woocommerce/) that enables simple statistics on e-shop products.
+
