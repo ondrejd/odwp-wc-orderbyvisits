@@ -44,6 +44,7 @@ Because you can use them in various ways - for example custom ordering of produc
 = 0.2.0 =
 * count how many times were project's detail viewed
 * count how many times were project added to the cart
+* added Czech localization
 
 = 0.1.1 =
 * fixed `uninstall` hook
