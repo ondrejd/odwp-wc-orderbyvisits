@@ -3,7 +3,7 @@
  * Plugin Name: Simple Stats for WooCommerce
  * Plugin URI: https://github.com/ondrejd/odwp-wc-simplestats
  * Description: Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products.
- * Version: 0.1.1
+ * Version: 0.1.5
  * Author: Ondřej Doněk
  * Author URI: http://ondrejdonek.blogspot.cz/
  * Requires at least: 4.3
@@ -95,23 +95,50 @@ function odwpwcss_minreq_error() {
 endif;
 
 
+if (!function_exists('odwpwcss_activate')):
+
+/**
+ * Activates the plugin.
+ *
+ * @internal
+ * @return void
+ * @since 0.2.0
+ */
+function odwpwcss_activate() {
+  global $wpdb;
+  $table = $wpdb->prefix . 'simplestats';
+
+  $sql = '' .
+    'CREATE TABLE IF NOT EXISTS `'.$table.'` (' .
+    '  `ID` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY , ' .
+    '  `post_ID` BIGINT(20) UNSIGNED NULL , ' .
+    '  `viewed` BIGINT(20) NOT NULL DEFAULT 0 , ' .
+    '  `selled` BIGINT(20) NOT NULL DEFAULT 0 ' .
+    ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;';
+
+  $wpdb->query($sql);
+} // end odwpwcss_activate()
+
+endif;
+
+
 if (!function_exists('odwpwcss_uninstall')):
 
 /**
- * Shows error in WP administration that minimum requirements were not met.
+ * Uninstall the plugin.
  *
  * @internal
  * @return void
  * @since 0.1.1
  */
 function odwpwcss_uninstall() {
-    if (!defined('WP_UNINSTALL_PLUGIN')) {
-      return;
-    }
+  if (!defined('WP_UNINSTALL_PLUGIN')) {
+    return;
+  }
 
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'simplestats';
-    $wpdb->query('DROP TABLE `'.$table_name.'` ');
+  global $wpdb;
+  $table = $wpdb->prefix . 'simplestats';
+  $wpdb->query('DROP TABLE `'.$table.'` ');
 } // end odwpwcss_uninstall()
 
 endif;

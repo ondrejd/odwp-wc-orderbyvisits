@@ -46,7 +46,8 @@ Because you can use them in various ways - for example custom ordering of produc
 
 ### 0.2.0
 
-* [ ] add hook for tracking how many time were projects viewed and selled
+* [x] count how many times were project's detail viewed
+* [ ] count how many times were project added to the cart
 * [ ] create documentation for adding custom products sorting in _FE_ catalog
 * [ ] create Czech version of documentation
 

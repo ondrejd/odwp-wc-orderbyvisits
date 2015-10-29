@@ -27,6 +27,7 @@ class ODWP_WC_SimpleStats {
    */
   public function __construct() {
     register_activation_hook(__FILE__, array($this, 'activate'));
+    register_activation_hook(ODWP_WC_SIMPLESTATS_FILE, 'odwpwcss_activate');
     register_uninstall_hook(ODWP_WC_SIMPLESTATS_FILE, 'odwpwcss_uninstall');
 
     add_action('plugins_loaded', array($this, 'init'));
@@ -45,6 +46,11 @@ class ODWP_WC_SimpleStats {
     } else {
       //add_action('admin_notices', )
     }
+
+    add_action(
+      'woocommerce_after_single_product_summary',
+      array($this, 'ws_after_single_product_summary')
+    );
   } // end init()
 
   /**
@@ -59,24 +65,39 @@ class ODWP_WC_SimpleStats {
   } // end add_integration($integrations)
 
   /**
-   * Activates the plug-in.
+   * Hook for WooCommerce's `woocommerce_after_single_product_summary` action.
+   * Save record about product was viewed into the database.
    *
+   * @uses get_post_ID()
    * @global wpdb $wpdb
    * @return void
-   * @since 0.1.0
+   * @since 0.2.0
    */
-  public function activate() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'simplestats';
-    $sql = '' .
-      'CREATE TABLE IF NOT EXISTS `'.$table_name.'` (' .
-      '  `ID` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY , ' .
-      '  `post_ID` BIGINT(20) UNSIGNED NULL , ' .
-      '  `viewed` BIGINT(20) NOT NULL DEFAULT 0 , ' .
-      '  `selled` BIGINT(20) NOT NULL DEFAULT 0 ' .
-      ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;';
-    $wpdb->query($sql);
-  } // end activate()
+  public function ws_after_single_product_summary() {
+    global $post, $wpdb;
+    $table = $wpdb->prefix . 'simplestats';
+
+    $pid = (int)get_the_ID();
+
+    if ($pid === 0) {
+      return;
+    }
+
+    $row = $wpdb->get_row(
+      'SELECT * FROM `'.$table.'` WHERE `post_ID`='.$pid.' '
+    );
+
+    if (is_null($row)) {
+      $wpdb->query(
+        'INSERT INTO `'.$table.'` VALUES (NULL,'.$pid.',1,0) '
+      );
+    } else {
+      $viewed = (int)$row->viewed + 1;
+      $wpdb->query(
+        'UPDATE `'.$table.'` SET `viewed`='.$viewed.' WHERE `post_ID`='.$pid.' '
+      );
+    }
+  } // end ws_after_single_product_summary()
 } // End of ODWP_WC_SimpleStats
 
 endif;

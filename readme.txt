@@ -4,7 +4,7 @@ Donate link: https://github.com/ondrejd/odwp-wc-simplestats
 Tags: woocommerce,statistics
 Requires at least: 4.3
 Tested up to: 4.3.1
-Stable tag: 0.1.1
+Stable tag: 0.2.0
 
 Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products.
 
