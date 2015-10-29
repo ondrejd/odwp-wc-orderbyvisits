@@ -36,7 +36,24 @@ Because you can use them in various ways - for example custom ordering of produc
 3. Screen with settings of our plugin (_Wp Admin - WooCommerce - Settings_):
    ![Plugin's integration within WooCommerce'](screenshot-3.png?raw=true "Plugin's integration within WooCommerce")
 
-## Changelog
+## Changelog/ToDo
+
+### ~1.0
+
+* [ ] tracking statistics about e-shop categories
+* [ ] more statistics about products - (added/removed from cart etc)
+* [ ] publish on [WordPress Plugins](https://wordpress.org/plugins) site
+
+### 0.2.0
+
+* [ ] add hook for tracking how many time were projects viewed and selled
+* [ ] create documentation for adding custom products sorting in _FE_ catalog
+* [ ] create Czech version of documentation
+
+### 0.1.1
+
+* fixed `uninstall` hook
+* fix integration (settings are not saved)
 
 ### 0.1.0
 
