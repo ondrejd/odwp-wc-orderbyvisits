@@ -79,10 +79,15 @@ if (!function_exists('odwpwcss_minreq_error')):
  */
 function odwpwcss_minreq_error() {
   echo ''.
-    '<div class="error">'.
-      '<h3>'.
+    '<div id="'.ODWP_WC_SIMPLESTATS.'_message1" class="error notice is-dismissible">'.
+      '<p>'.
         __('The <b>Simple Stats Plugin for Woocommerce</b> plugin requires <b>WooCommerce</b> plugin installed and activated.</p>', ODWP_WC_SIMPLESTATS).
-      '</h3>'.
+      '</p>'.
+    '</div>'.
+    '<div id="'.ODWP_WC_SIMPLESTATS.'_message2" class="updated notice is-dismissible">'.
+      '<p>'.
+        __('Plugin <b>Simple Stats Plugin for Woocommerce</b> was <b>deactivated</b>.', ODWP_WC_SIMPLESTATS).
+      '</p>'.
     '</div>';
 } // end odwpwcss_minreq_error()
 
@@ -187,7 +192,7 @@ if (!odwpwcss_check_requirements()) {
   odwpwcss_deactivate_raw();
 
   if (is_admin()) {
-    add_action('admin_head', 'myeasy_min_reqs');
+    add_action('admin_head', 'odwpwcss_minreq_error');
   }
 
   return;
