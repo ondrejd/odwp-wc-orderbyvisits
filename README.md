@@ -47,9 +47,10 @@ Because you can use them in various ways - for example custom ordering of produc
 ### 0.2.0
 
 * [x] count how many times were project's detail viewed
-* [ ] count how many times were project added to the cart
+* [x] count how many times were project added to the cart
 * [ ] create documentation for adding custom products sorting in _FE_ catalog
 * [ ] create Czech version of documentation
+* [ ] add Czech locales
 
 ### 0.1.1
 

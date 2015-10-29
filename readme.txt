@@ -41,6 +41,10 @@ Because you can use them in various ways - for example custom ordering of produc
 
 == Changelog ==
 
+= 0.2.0 =
+* count how many times were project's detail viewed
+* count how many times were project added to the cart
+
 = 0.1.1 =
 * fixed `uninstall` hook
 * fix integration (settings are not saved)

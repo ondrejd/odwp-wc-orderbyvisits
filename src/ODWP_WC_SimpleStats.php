@@ -49,8 +49,9 @@ class ODWP_WC_SimpleStats {
 
     add_action(
       'woocommerce_after_single_product_summary',
-      array($this, 'ws_after_single_product_summary')
+      array($this, 'wc_after_single_product_summary')
     );
+    add_action('woocommerce_add_to_cart', array($this, 'wc_add_to_cart'));
   } // end init()
 
   /**
@@ -68,13 +69,13 @@ class ODWP_WC_SimpleStats {
    * Hook for WooCommerce's `woocommerce_after_single_product_summary` action.
    * Save record about product was viewed into the database.
    *
-   * @uses get_post_ID()
    * @global wpdb $wpdb
    * @return void
    * @since 0.2.0
+   * @uses get_post_ID()
    */
-  public function ws_after_single_product_summary() {
-    global $post, $wpdb;
+  public function wc_after_single_product_summary() {
+    global $wpdb;
     $table = $wpdb->prefix . 'simplestats';
 
     $pid = (int)get_the_ID();
@@ -97,7 +98,44 @@ class ODWP_WC_SimpleStats {
         'UPDATE `'.$table.'` SET `viewed`='.$viewed.' WHERE `post_ID`='.$pid.' '
       );
     }
-  } // end ws_after_single_product_summary()
+  } // end wc_after_single_product_summary()
+
+  /**
+   * Hook for WooCommerce's `woocommerce_add_to_cart` action.
+   * Save into the database that product was added to the cart.
+   *
+   * @global wpdb $wpdb
+   * @param string $cart_item_key
+   * @return void
+   * @since 0.2.0
+   * @uses WC()
+   */
+  public function wc_add_to_cart($cart_item_key) {
+    // Pozn. Nezohlednujeme pocet pridanych kusu...
+    global $wpdb;
+    $table = $wpdb->prefix . 'simplestats';
+
+    $cart_item = WC()->cart->get_cart_item($cart_item_key);
+    if (!array_key_exists('product_id', $cart_item)) {
+      return;
+    }
+
+    $pid = $cart_item['product_id'];
+    $row = $wpdb->get_row(
+      'SELECT * FROM `'.$table.'` WHERE `post_ID`='.$pid.' '
+    );
+
+    if (is_null($row)) {
+      $wpdb->query(
+        'INSERT INTO `'.$table.'` VALUES (NULL,'.$pid.',1,0) '
+      );
+    } else {
+      $selled = (int)$row->selled + 1;
+      $wpdb->query(
+        'UPDATE `'.$table.'` SET `selled`='.$selled.' WHERE `post_ID`='.$pid.' '
+      );
+    }
+  } // end wc_add_to_cart()
 } // End of ODWP_WC_SimpleStats
 
 endif;
