@@ -1,6 +1,6 @@
 # Simple Stats for WooCommerce
 
-Simple plugin for [WordPress](https://wordpress.org/) with [WooCommerce](https://wordpress.org/plugins/woocommerce/) that enables simple statistics on e-shop products.
+Simple plugin for [WordPress](https://wordpress.org/) with [WooCommerce](https://wordpress.org/plugins/woocommerce/) that enables simple statistics on e-shop products and add custom products sorting based on them.
 
 ## Dontations
 
@@ -12,8 +12,8 @@ If your like this plugin and you want to be maintained and improved more frequen
 
 Main features:
 
-- statistics for visits per WooCommerce's product detail
-- statistics for count of sellings per WooCommerce's product 
+- statistics for visits per WooCommerce's product detail page
+- custom products sorting based on how many times were product's detail viewed
 
 ## Installation
 

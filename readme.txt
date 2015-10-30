@@ -7,15 +7,17 @@ Requires at least: 4.3
 Tested up to: 4.3.1
 Stable tag: 0.2.0
 
-Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products.
+Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products and add custom products sorting based on them.
 
 
 == Description ==
 
+Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products and add custom products sorting based on them.
+
 Main features:
 
 * statistics for visits per WooCommerce's product detail
-* statistics for count of sellings per WooCommerce's product 
+- custom products sorting based on how many times were product's detail viewed
 
 
 == Installation ==
