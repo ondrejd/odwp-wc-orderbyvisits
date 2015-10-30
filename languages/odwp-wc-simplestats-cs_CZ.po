@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: odwp-wc-simplestats\n"
-"POT-Creation-Date: 2015-10-29 23:33+0100\n"
-"PO-Revision-Date: 2015-10-29 23:35+0100\n"
+"POT-Creation-Date: 2015-10-30 09:13+0100\n"
+"PO-Revision-Date: 2015-10-30 09:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: Ondřej Doněk <ondrejd@gmail.com>\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,35 +15,35 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../odwp-wc-simplestats.php:85
+#: ../odwp-wc-simplestats.php:86
 msgid ""
 "The <b>Simple Stats Plugin for WooCommerce</b> plugin requires "
 "<b>WooCommerce</b> plugin installed and activated."
 msgstr ""
+"Plugin <b>Jednoduché statistiky pro WooCommerce</b> vyžaduje, aby plugin "
+"<b>WooCommerce</b> byl nainstalován a aktivován."
 
-#: ../odwp-wc-simplestats.php:90
+#: ../odwp-wc-simplestats.php:91
 msgid ""
 "Plugin <b>Simple Stats Plugin for WooCommerce</b> was <b>deactivated</b>."
-msgstr ""
+msgstr "Plugin <b>Jednoduché statistiky pro WooCommerce</b> byl deaktivován."
 
 #: ../src/ODWP_WC_SimpleStats_Integration.php:35
 msgid "Simple Stats Plugin for Woocommerce"
-msgstr ""
+msgstr "Jednoduché statistiky pro WooCommerce"
 
 #: ../src/ODWP_WC_SimpleStats_Integration.php:36
 msgid "Options for <b>Simple Stats Plugin for Woocommerce</b> plugin."
 msgstr ""
+"Možnosti nastavení pluginu <b>Jednoduché statistiky pro WooCommerce</b>"
 
 #: ../src/ODWP_WC_SimpleStats_Integration.php:56
 msgid "Enable simple stats"
-msgstr ""
+msgstr "Povolit statistiky"
 
 #: ../src/ODWP_WC_SimpleStats_Integration.php:58
 msgid ""
 "Check if you want to start using <b>Simple Stats plugin for Woocommerce</b>."
 msgstr ""
-
-#~ msgid ""
-#~ "The <b>Simple Stats Plugin for WooCommerce</b> plugin requires "
-#~ "<b>WooCommerce</b> plugin installed and activated.</p>"
-#~ msgstr ""
+"Zaškrtněte pokud chcete, aby se začaly zaznamenávat statistiky přístupů či "
+"prodejů jednotlivých produktů."

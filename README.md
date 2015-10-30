@@ -2,6 +2,12 @@
 
 Simple plugin for [WordPress](https://wordpress.org/) with [WooCommerce](https://wordpress.org/plugins/woocommerce/) that enables simple statistics on e-shop products.
 
+## Dontations
+
+If your like this plugin and you want to be maintained and improved more frequently consider donation:
+
+[![Make donation](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif "PayPal - The safer, eaisier way to pay online!")](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ondrejd%40gmail%2ecom&lc=CZ&item_name=ondrejd%2fodwp%2dwc%2dsimplestats&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
+
 ## Description
 
 Main features:

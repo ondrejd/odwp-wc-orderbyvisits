@@ -10,6 +10,7 @@
  * Tested up to: 4.3.1
  *
  * Text Domain: odwp-wc-simplestats
+ * Domain Path: /languages/
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  * @link https://github.com/ondrejd/odwp-wc-simplestats for the canonical source repository

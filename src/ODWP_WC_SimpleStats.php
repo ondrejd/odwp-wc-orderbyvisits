@@ -40,7 +40,7 @@ class ODWP_WC_SimpleStats {
    * @since 0.1.0
    */
   public function init() {
-    $path = basename(ODWP_WC_SIMPLESTATS_FILE);
+    $path = ODWP_WC_SIMPLESTATS.'/languages';
     load_plugin_textdomain(ODWP_WC_SIMPLESTATS, false, $path);
 
     if (class_exists('WC_Integration')) {
