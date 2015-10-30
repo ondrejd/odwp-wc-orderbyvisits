@@ -118,6 +118,8 @@ function odwpwcss_activate() {
     ') ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;';
 
   $wpdb->query($sql);
+
+  ODWP_WC_SimpleStats::auto_update_all_posts_meta();
 } // end odwpwcss_activate()
 
 endif;

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: odwp-wc-simplestats\n"
-"POT-Creation-Date: 2015-10-30 09:13+0100\n"
-"PO-Revision-Date: 2015-10-30 09:17+0100\n"
+"POT-Creation-Date: 2015-10-30 10:56+0100\n"
+"PO-Revision-Date: 2015-10-30 10:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: Ondřej Doněk <ondrejd@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -27,6 +27,10 @@ msgstr ""
 msgid ""
 "Plugin <b>Simple Stats Plugin for WooCommerce</b> was <b>deactivated</b>."
 msgstr "Plugin <b>Jednoduché statistiky pro WooCommerce</b> byl deaktivován."
+
+#: ../src/ODWP_WC_SimpleStats.php:172
+msgid "Popularity (visits)"
+msgstr "Popularita (návštěvnost)"
 
 #: ../src/ODWP_WC_SimpleStats_Integration.php:35
 msgid "Simple Stats Plugin for Woocommerce"

@@ -43,6 +43,8 @@ Because you can use them in various ways - for example custom ordering of produc
 1. `screenshot-1.png`
 2. `screenshot-2.png`
 3. `screenshot-3.png`
+4. `screenshot-4.png`
+5. `screenshot-5.png`
 
 
 == License ==
@@ -55,6 +57,7 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 = 0.2.0 =
 * count how many times were project's detail viewed
 * count how many times were project added to the cart
+* adding our custom products ordering (*Popularity (visits)*)
 * added Czech localization
 
 = 0.1.1 =

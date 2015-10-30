@@ -41,22 +41,25 @@ Because you can use them in various ways - for example custom ordering of produc
    ![Plugin not installed - WooCommerce is missing.](screenshot-2.png?raw=true "Plugin not installed - WooCommerce is missing.")
 3. Screen with settings of our plugin (_Wp Admin - WooCommerce - Settings_):
    ![Plugin's integration within WooCommerce'](screenshot-3.png?raw=true "Plugin's integration within WooCommerce")
+4. Here we are selecting our custom products ordering (_Wp Admin - WooCommerce - Products - Display_):
+   ![Selecting our custom WooCommerce products ordering'](screenshot-4.png?raw=true "Selecting our custom WooCommerce products ordering")
+5. Here we are selecting our custom products ordering (_front-end_):
+   ![Selecting our custom WooCommerce products ordering on FE'](screenshot-4.png?raw=true "Selecting our custom WooCommerce products ordering on FE")
 
 ## Changelog/ToDo
 
 ### ~1.0
 
 * [ ] tracking statistics about e-shop categories
-* [ ] more statistics about products - (added/removed from cart etc)
+* [ ] more products statistics and custom sorting - (added/removed from cart etc...)
 * [ ] publish on [WordPress Plugins](https://wordpress.org/plugins) site
 
 ### 0.2.0
 
-* [x] count how many times were project's detail viewed
-* [x] count how many times were project added to the cart
-* [ ] create documentation for adding custom products sorting in _FE_ catalog
-* [ ] create Czech version of documentation
-* [x] add Czech localization
+* count how many times were project's detail viewed
+* count how many times were project added to the cart
+* adding our custom products ordering (_Popularity (visits)_)
+* add Czech localization
 
 ### 0.1.1
 
