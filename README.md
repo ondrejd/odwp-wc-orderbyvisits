@@ -44,7 +44,7 @@ Because you can use them in various ways - for example custom ordering of produc
 4. Here we are selecting our custom products ordering (_Wp Admin - WooCommerce - Products - Display_):
    ![Selecting our custom WooCommerce products ordering'](screenshot-4.png?raw=true "Selecting our custom WooCommerce products ordering")
 5. Here we are selecting our custom products ordering (_front-end_):
-   ![Selecting our custom WooCommerce products ordering on FE'](screenshot-4.png?raw=true "Selecting our custom WooCommerce products ordering on FE")
+   ![Selecting our custom WooCommerce products ordering on FE'](screenshot-5.png?raw=true "Selecting our custom WooCommerce products ordering on FE")
 
 ## Changelog/ToDo
 
