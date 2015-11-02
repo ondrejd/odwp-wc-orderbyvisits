@@ -54,6 +54,12 @@ Because you can use them in various ways - for example custom ordering of produc
 * [ ] more products statistics and custom sorting - (added/removed from cart etc...)
 * [ ] publish on [WordPress Plugins](https://wordpress.org/plugins) site
 
+### 0.2.5
+
+* [ ] fixed that `enable` options was not used
+* [ ] added option `enable_random` for enabling/disabling random order for products with same visits count.
+* [ ] added button for generating random order values
+
 ### 0.2.0
 
 * count how many times were project's detail viewed

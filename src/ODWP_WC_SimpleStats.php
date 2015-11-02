@@ -24,9 +24,11 @@ class ODWP_WC_SimpleStats {
    *
    * @return void
    * @since 0.1.0
+   * @uses add_action()
+   * @uses register_activation_hook()
+   * @uses register_uninstall_hook()
    */
   public function __construct() {
-    register_activation_hook(__FILE__, array($this, 'activate'));
     register_activation_hook(ODWP_WC_SIMPLESTATS_FILE, 'odwpwcss_activate');
     register_uninstall_hook(ODWP_WC_SIMPLESTATS_FILE, 'odwpwcss_uninstall');
 
@@ -39,6 +41,7 @@ class ODWP_WC_SimpleStats {
    *
    * @return void
    * @since 0.2.0
+   * @uses load_plugin_textdomain()
    */
   public function load_plugin_textdomain() {
     $path = ODWP_WC_SIMPLESTATS.'/languages';
@@ -50,13 +53,22 @@ class ODWP_WC_SimpleStats {
    *
    * @return void
    * @since 0.1.0
+   * @uses add_action()
+   * @uses add_filter()
+   * @uses is_admin()
    */
   public function init() {
+    // add our WooCommerce integration form
     if (class_exists('WC_Integration')) {
       include_once dirname(__FILE__).'/ODWP_WC_SimpleStats_Integration.php';
       add_filter('woocommerce_integrations', array($this, 'add_integration'));
-    } else {
-      //add_action('admin_notices', )
+
+      if (is_admin()) {
+        // add JavaScript for "Generate order" button in integration page
+        add_action('admin_footer', array($this, 'add_admin_footer_js'));
+        // add callback for our Ajax action
+        add_action('wp_ajax_odwpwcss_generate_random', array($this, 'admin_ajax_generate_random'));
+      }
     }
 
     // count product detail pages visits
@@ -77,6 +89,22 @@ class ODWP_WC_SimpleStats {
   } // end init()
 
   /**
+   * Returns our integration.
+   *
+   * @return ODWP_WC_SimpleStats_Integration|null
+   * @since 0.2.5
+   * @uses WC()
+   */
+  public function get_integration() {
+    $integrations = WC()->integrations->get_integrations();
+    if (array_key_exists(ODWP_WC_SIMPLESTATS, $integrations)) {
+      return $integrations[ODWP_WC_SIMPLESTATS];
+    }
+
+    return null;
+  } // end get_integration()
+
+  /**
    * Add a new integration to WooCommerce.
    *
    * @param array $integrations
@@ -95,6 +123,7 @@ class ODWP_WC_SimpleStats {
    * @return void
    * @since 0.2.0
    * @uses get_post_ID()
+   * @uses update_post_meta()
    */
   public function count_detail_visit() {
     global $wpdb;
@@ -153,13 +182,11 @@ class ODWP_WC_SimpleStats {
       $wpdb->query(
         'INSERT INTO `'.$table.'` VALUES (NULL,'.$pid.',0,1) '
       );
-      // TODO update_post_meta($pid, '_odwpwcss_selled', 1);
     } else {
       $selled = (int)$row->selled + 1;
       $wpdb->query(
         'UPDATE `'.$table.'` SET `selled`='.$selled.' WHERE `post_ID`='.$pid.' '
       );
-      // TODO update_post_meta($pid, '_odwpwcss_selled', $selled);
     }
   } // end count_add_to_cart()
 
@@ -170,7 +197,10 @@ class ODWP_WC_SimpleStats {
    * @return array
    */
   public function modify_sorting_settings($sortby) {
-    $sortby['by_views'] = __('Popularity (visits)', ODWP_WC_SIMPLESTATS);
+    if ($this->get_integration()->is_enabled()) {
+      $sortby['by_views'] = __('Popularity (visits)', ODWP_WC_SIMPLESTATS);
+    }
+    
     return $sortby;
   } // end modify_sorting_settings($sortby)
 
@@ -180,6 +210,9 @@ class ODWP_WC_SimpleStats {
    * @param array $sort_args
    * @return array
    * @since 0.2.0
+   * @uses get_option()
+   * @uses woocommerce_clean()
+   * @uses getapply_filters_option()
    */
   public function add_new_shop_ordering_args($sort_args) {
     $orderby = filter_input(INPUT_GET, 'orderby');
@@ -188,10 +221,15 @@ class ODWP_WC_SimpleStats {
       ? woocommerce_clean($orderby) 
       : apply_filters('woocommerce_default_catalog_orderby', $orderby_default);
 
-    if ('by_views' == $orderby_value) {
-        $sort_args['orderby'] = array('meta_value_num' => 'DESC', 'rand');
-        $sort_args['order'] = 'DESC';
-        $sort_args['meta_key'] = '_odwpwcss_viewed';
+    if ('by_views' == $orderby_value && $this->get_integration()->is_enabled()) {
+      $our_orderby = array('meta_value_num' => 'DESC');
+
+      if ($this->get_integration()->is_enabled_random()) {
+        array_push($our_orderby, 'rand');
+      }
+
+      $sort_args['orderby'] = $our_orderby;
+      $sort_args['meta_key'] = '_odwpwcss_viewed';
     }
 
     return $sort_args;
@@ -203,6 +241,7 @@ class ODWP_WC_SimpleStats {
    * @global wpdb $wpdb
    * @return void
    * @since 0.2.0
+   * @uses update_post_meta()
    */
   public static function auto_update_all_posts_meta() {
     global $wpdb;
@@ -217,7 +256,7 @@ class ODWP_WC_SimpleStats {
       'FROM `'.$wpdb->posts.'` AS `t1` '.
       'LEFT JOIN `'.$table.'` AS `t2` ON `t2`.`post_ID` = `t1`.`ID` '.
       'WHERE `t1`.`post_type`="product" '
-    );//WHERE post_status="publish" AND
+    );
 
     if (!is_array($all_products)) {
       return;
@@ -237,17 +276,62 @@ class ODWP_WC_SimpleStats {
    * @param WP_Post $post
    * @return void
    * @since 0.2.0
+   * @uses wp_is_post_revision()
+   * @uses wp_is_post_autosave()
+   * @uses current_user_can()
+   * @uses update_post_meta()
    */
   public function update_post_meta($post_id, $post) {
-    if (is_int( wp_is_post_revision($post_id))) return;
-    if (is_int( wp_is_post_autosave($post_id))) return;
+    if (is_int(wp_is_post_revision($post_id))) return;
+    if (is_int(wp_is_post_autosave($post_id))) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
-    if (!current_user_can( 'edit_post', $post_id)) return $post_id;
+    if (!current_user_can('edit_post', $post_id)) return $post_id;
     if ($post->post_type != 'product') return $post_id;
 
     update_post_meta($post_id, '_odwpwcss_viewed', 0);
     // TODO update_post_meta($post_id, '_odwpwcss_selled', 0);
   } // end update_post_meta($post_id, $post)
+
+  /**
+   * Add JavaScript for "Generate order" button in integration page.
+   *
+   * @return void
+   * @since 0.2.5
+   */
+  public function add_admin_footer_js() {?>
+    <script type="text/javascript">
+function odwpwcss_generate_random_order() {
+  jQuery(document).ready(function($) {
+    var data = { 'action': 'odwpwcss_generate_random' };
+
+    // since WP 2.8 is `ajaxurl` always defined in the admin header 
+    // and points to `admin-ajax.php`
+    jQuery.post(ajaxurl, data, function(response) {
+      alert('Got this from the server: ' + response);
+    });
+  });
+} // end odwpwcss_generate_random_order()
+    </script><?php
+  } // end add_admin_footer_js()
+
+  /**
+   * Callback for Ajax action on "Generate order" button.
+   *
+   * @return void
+   * @see ODWP_WC_SimpleStats::add_admin_footer_js()
+   * @since 0.2.5
+   * @uses wp_die()
+   */
+  function admin_ajax_generate_random() {
+    if (current_user_can('edit_posts')) {
+      self::auto_update_all_posts_meta();
+      echo 'OK';
+    } else {
+      echo 'ERR';
+    }
+
+    wp_die();
+  } // end admin_ajax_generate_random()
 } // End of ODWP_WC_SimpleStats
 
 endif;

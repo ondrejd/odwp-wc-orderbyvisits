@@ -56,6 +56,11 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 
 == Changelog ==
 
+= 0.2.5 =
+* fixed that `enable` options was not used
+* added option `enable_random` for enabling/disabling random order for products with same visits count.
+* added button for generating random order values
+
 = 0.2.0 =
 * count how many times were project's detail viewed
 * count how many times were project added to the cart
