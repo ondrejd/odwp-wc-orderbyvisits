@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: odwp-wc-simplestats\n"
-"POT-Creation-Date: 2015-10-30 10:56+0100\n"
-"PO-Revision-Date: 2015-10-30 10:56+0100\n"
+"POT-Creation-Date: 2015-11-03 08:51+0100\n"
+"PO-Revision-Date: 2015-11-03 08:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: Ondřej Doněk <ondrejd@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -28,26 +28,82 @@ msgid ""
 "Plugin <b>Simple Stats Plugin for WooCommerce</b> was <b>deactivated</b>."
 msgstr "Plugin <b>Jednoduché statistiky pro WooCommerce</b> byl deaktivován."
 
-#: ../src/ODWP_WC_SimpleStats.php:172
+#: ../src/ODWP_WC_SimpleStats.php:202
 msgid "Popularity (visits)"
 msgstr "Popularita (návštěvnost)"
 
-#: ../src/ODWP_WC_SimpleStats_Integration.php:35
-msgid "Simple Stats Plugin for Woocommerce"
+#: ../src/ODWP_WC_SimpleStats.php:328
+msgid "Random values were generated successfully."
+msgstr "Náhodné hodnoty pořadí byly úspěšně vygenerovány."
+
+#: ../src/ODWP_WC_SimpleStats.php:332
+msgid ""
+"There was an error while generating random values. Please try again or "
+"contact your administrator."
+msgstr ""
+"Při generování náhodných hodnot pořadí se vyskytla chyba. Zkuste operaci "
+"zopakovat a v případě opakování chyby kontaktujte administrátora."
+
+#: ../src/ODWP_WC_SimpleStats_Integration.php:43
+msgid "Simple Stats Plugin for WooCommerce"
 msgstr "Jednoduché statistiky pro WooCommerce"
 
-#: ../src/ODWP_WC_SimpleStats_Integration.php:36
-msgid "Options for <b>Simple Stats Plugin for Woocommerce</b> plugin."
-msgstr ""
-"Možnosti nastavení pluginu <b>Jednoduché statistiky pro WooCommerce</b>"
+#: ../src/ODWP_WC_SimpleStats_Integration.php:44
+msgid "Options for <b>Simple Stats Plugin for WooCommerce</b> plugin."
+msgstr "Nastavení pluginu <b>Jednoduché statistiky pro WooCommerce</b>."
 
-#: ../src/ODWP_WC_SimpleStats_Integration.php:56
+#: ../src/ODWP_WC_SimpleStats_Integration.php:86
 msgid "Enable simple stats"
 msgstr "Povolit statistiky"
 
-#: ../src/ODWP_WC_SimpleStats_Integration.php:58
+#: ../src/ODWP_WC_SimpleStats_Integration.php:88
 msgid ""
-"Check if you want to start using <b>Simple Stats plugin for Woocommerce</b>."
+"Check if you want to start using <b>Simple Stats plugin for WooCommerce</b>."
 msgstr ""
-"Zaškrtněte pokud chcete, aby se začaly zaznamenávat statistiky přístupů či "
-"prodejů jednotlivých produktů."
+"Zaškrtněte, pokud chcete používat plugin <b>Jednoduché statistiky pro "
+"WooCommerce</b>."
+
+#: ../src/ODWP_WC_SimpleStats_Integration.php:93
+msgid "Enable random ordering"
+msgstr "Povolit náhodné řazení"
+
+#: ../src/ODWP_WC_SimpleStats_Integration.php:95
+msgid ""
+"Check if you want random ordering for products with same count of visits."
+msgstr ""
+"Zaškrtněte, pokud chcete, aby produkty s nulovým (či shodným) počtem "
+"návštěv řadily náhodně."
+
+#: ../src/ODWP_WC_SimpleStats_Integration.php:100
+#: ../src/ODWP_WC_SimpleStats_Integration.php:105
+msgid "Generate order"
+msgstr "Generovat pořadí"
+
+#: ../src/ODWP_WC_SimpleStats_Integration.php:103
+msgid ""
+"Generate random order values for all products. This can be time consuming "
+"according to total count of products."
+msgstr ""
+"Vygenerovat náhodné pořadí pro všechny produkty. Upozornění: toto může (v "
+"závislosti na počtu produktů) chvíli trvat."
+
+#: ../src/ODWP_WC_SimpleStats_Integration.php:146
+msgid ""
+"Please wait until the button is ready again and the result message is "
+"displayed."
+msgstr ""
+"Čekejte dokud tlačítko nebude znovu povoleno a výsledná zpráva zobrazena."
+
+#~ msgid "Simple Stats Plugin for Woocommerce"
+#~ msgstr "Jednoduché statistiky pro WooCommerce"
+
+#~ msgid "Options for <b>Simple Stats Plugin for Woocommerce</b> plugin."
+#~ msgstr ""
+#~ "Možnosti nastavení pluginu <b>Jednoduché statistiky pro WooCommerce</b>"
+
+#~ msgid ""
+#~ "Check if you want to start using <b>Simple Stats plugin for Woocommerce</"
+#~ "b>."
+#~ msgstr ""
+#~ "Zaškrtněte pokud chcete, aby se začaly zaznamenávat statistiky přístupů "
+#~ "či prodejů jednotlivých produktů."
