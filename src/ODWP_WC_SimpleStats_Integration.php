@@ -99,10 +99,7 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
       'generate_btn' => array(
         'title'             => __( 'Generate order', ODWP_WC_SIMPLESTATS),
         'type'              => 'button',
-        'custom_attributes' => array(
-          //'onclick'         => 'alert("'.WP_PLUGIN_URL.'/'.ODWP_WC_SIMPLESTATS.'/generate-random-order.php")'
-          'onclick'         => 'odwpwcss_generate_random_order()'
-        ),
+        'custom_attributes' => array(),
         'description'       => __('Generate random order values for all products. This can be time consuming according to total count of products.', ODWP_WC_SIMPLESTATS),
         'desc_tip'          => true,
         'default'           => __( 'Generate order', ODWP_WC_SIMPLESTATS),
@@ -118,11 +115,10 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
    * @param array $data
    * @return void
    * @since 0.2.5
-   * @todo Add process icon (http://wordpress.stackexchange.com/questions/106734/how-to-add-a-waiting-icon-for-an-ajax-in-wp-frontend)
    * @uses wp_parse_args()
    * @uses wp_kses_post()
    */
-  public function generate_button_html( $key, $data ) {
+  public function generate_button_html($key, $data) {
     $field    = ODWP_WC_SIMPLESTATS . $this->id . '_' . $key;
     $defaults = array(
       'class'             => 'button-secondary',
@@ -144,8 +140,10 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
     <td class="forminp">
       <fieldset>
         <legend class="screen-reader-text"><span><?= wp_kses_post($data['title'])?></span></legend>
-        <button class="<?= esc_attr($data['class'])?>" type="button" name="<?= esc_attr($field)?>" id="<?= esc_attr( $field)?>" style="<?php echo esc_attr( $data['css'] ); ?>" <?= $this->get_custom_attribute_html($data)?>><?= wp_kses_post($data['title'])?></button>
+        <button class="<?= esc_attr($data['class'])?>" type="button" name="<?= esc_attr($field)?>" id="<?= esc_attr($field)?>" style="<?= esc_attr($data['css'])?>" <?= $this->get_custom_attribute_html($data)?>><?= wp_kses_post($data['title'])?></button>
         <?= $this->get_description_html($data)?>
+        <img id="<?= ODWP_WC_SIMPLESTATS.'_progress_img'?>" src="<?= get_site_url().'/wp-admin/images/wpspin_light'?>" style="display:none;position:relative;top:6px;"/>
+        <p id="<?= ODWP_WC_SIMPLESTATS.'_progress_msg'?>" class="description" style="display:none;"><?= __('Please wait until the button is ready again and the result message is displayed.')?></p>
       </fieldset>
     </td>
   </tr>

@@ -93,9 +93,10 @@ class ODWP_WC_SimpleStats {
    *
    * @return ODWP_WC_SimpleStats_Integration|null
    * @since 0.2.5
+   * @static
    * @uses WC()
    */
-  public function get_integration() {
+  public static function get_integration() {
     $integrations = WC()->integrations->get_integrations();
     if (array_key_exists(ODWP_WC_SIMPLESTATS, $integrations)) {
       return $integrations[ODWP_WC_SIMPLESTATS];
@@ -197,7 +198,7 @@ class ODWP_WC_SimpleStats {
    * @return array
    */
   public function modify_sorting_settings($sortby) {
-    if ($this->get_integration()->is_enabled()) {
+    if (self::get_integration()->is_enabled()) {
       $sortby['by_views'] = __('Popularity (visits)', ODWP_WC_SIMPLESTATS);
     }
     
@@ -221,10 +222,10 @@ class ODWP_WC_SimpleStats {
       ? woocommerce_clean($orderby) 
       : apply_filters('woocommerce_default_catalog_orderby', $orderby_default);
 
-    if ('by_views' == $orderby_value && $this->get_integration()->is_enabled()) {
+    if ('by_views' == $orderby_value && self::get_integration()->is_enabled()) {
       $our_orderby = array('meta_value_num' => 'DESC');
 
-      if ($this->get_integration()->is_enabled_random()) {
+      if (self::get_integration()->is_enabled_random()) {
         array_push($our_orderby, 'rand');
       }
 
@@ -241,6 +242,7 @@ class ODWP_WC_SimpleStats {
    * @global wpdb $wpdb
    * @return void
    * @since 0.2.0
+   * @static
    * @uses update_post_meta()
    */
   public static function auto_update_all_posts_meta() {
@@ -262,8 +264,15 @@ class ODWP_WC_SimpleStats {
       return;
     }
 
+    $use_rand = self::get_integration()->is_enabled_random();
+
     foreach ($all_products as $p) {
-      update_post_meta($p->post_id, '_odwpwcss_viewed', (int)$p->viewed);
+      $viewed = (int)$p->viewed;
+      if ($use_rand === true) {
+        $viewed = rand(0, 99);
+      }
+
+      update_post_meta($p->post_id, '_odwpwcss_viewed', $viewed);
       // TODO update_post_meta($p->post_id, '_odwpwcss_selled', (int)$p->selled);
     }
   } // end auto_update_all_posts_meta()
@@ -288,7 +297,8 @@ class ODWP_WC_SimpleStats {
     if (!current_user_can('edit_post', $post_id)) return $post_id;
     if ($post->post_type != 'product') return $post_id;
 
-    update_post_meta($post_id, '_odwpwcss_viewed', 0);
+    $viewed = (self::get_integration()->is_enabled_random()) ? rand(0, 99) : 0;
+    update_post_meta($post_id, '_odwpwcss_viewed', $viewed);
     // TODO update_post_meta($post_id, '_odwpwcss_selled', 0);
   } // end update_post_meta($post_id, $post)
 
@@ -300,17 +310,31 @@ class ODWP_WC_SimpleStats {
    */
   public function add_admin_footer_js() {?>
     <script type="text/javascript">
-function odwpwcss_generate_random_order() {
-  jQuery(document).ready(function($) {
-    var data = { 'action': 'odwpwcss_generate_random' };
+jQuery(document).ready(function($) {
+  $('#<?= ODWP_WC_SIMPLESTATS?>odwp-wc-simplestats_generate_btn').prop('disabled', false).click(function() {
+    // show progress image and disable the button
+    jQuery(this).prop('disabled', true);
+    jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_img').show();
+    jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_msg').show();
 
     // since WP 2.8 is `ajaxurl` always defined in the admin header 
     // and points to `admin-ajax.php`
-    jQuery.post(ajaxurl, data, function(response) {
-      alert('Got this from the server: ' + response);
+    jQuery.post(ajaxurl, { 'action': 'odwpwcss_generate_random' }, function(response) {
+      jQuery('#<?= ODWP_WC_SIMPLESTATS?>odwp-wc-simplestats_generate_btn').prop('disabled', false);
+      jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_img').hide();
+
+      if (response === 'OK') {
+        jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_msg').html(
+          "<?= __('Random values were generated successfully.', ODWP_WC_SIMPLESTATS)?>"
+        );
+      } else {
+        jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_msg').html(
+          "<?= __('There was an error while generating random values. Please try again or contact your administrator.', ODWP_WC_SIMPLESTATS)?>"
+        );
+      }
     });
   });
-} // end odwpwcss_generate_random_order()
+});
     </script><?php
   } // end add_admin_footer_js()
 
