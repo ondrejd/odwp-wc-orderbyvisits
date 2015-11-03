@@ -41,7 +41,7 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
 		global $woocommerce;
 		$this->id = ODWP_WC_SIMPLESTATS;
 		$this->method_title = __('Simple Stats Plugin for WooCommerce', ODWP_WC_SIMPLESTATS);
-		$this->method_description = __('Options for <b>Simple Stats Plugin for WooCommerce</b> plugin.',ODWP_WC_SIMPLESTATS);
+		$this->method_description = __('Options for <b>Simple Stats Plugin for WooCommerce</b> plugin.', ODWP_WC_SIMPLESTATS);
 
 		$this->init_form_fields();
 		$this->init_settings();
@@ -143,7 +143,7 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
         <button class="<?= esc_attr($data['class'])?>" type="button" name="<?= esc_attr($field)?>" id="<?= esc_attr($field)?>" style="<?= esc_attr($data['css'])?>" <?= $this->get_custom_attribute_html($data)?>><?= wp_kses_post($data['title'])?></button>
         <?= $this->get_description_html($data)?>
         <img id="<?= ODWP_WC_SIMPLESTATS.'_progress_img'?>" src="<?= get_site_url().'/wp-admin/images/wpspin_light'?>" style="display:none;position:relative;top:6px;"/>
-        <p id="<?= ODWP_WC_SIMPLESTATS.'_progress_msg'?>" class="description" style="display:none;"><?= __('Please wait until the button is ready again and the result message is displayed.')?></p>
+        <p id="<?= ODWP_WC_SIMPLESTATS.'_progress_msg'?>" class="description" style="display:none;"><?= __('Please wait until the button is ready again and the result message is displayed.', ODWP_WC_SIMPLESTATS)?></p>
       </fieldset>
     </td>
   </tr>
