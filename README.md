@@ -56,9 +56,9 @@ Because you can use them in various ways - for example custom ordering of produc
 
 ### 0.2.5
 
-* [ ] fixed that `enable` options was not used
-* [ ] added option `enable_random` for enabling/disabling random order for products with same visits count.
-* [ ] added button for generating random order values
+* fixed that `enable` options was not used
+* added option `enable_random` for enabling/disabling random order for products with same visits count.
+* added button for generating random order values
 
 ### 0.2.0
 
