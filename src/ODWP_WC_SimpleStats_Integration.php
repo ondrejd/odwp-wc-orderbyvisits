@@ -38,7 +38,6 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
    * @uses add_filter()
 	 */
 	public function __construct() {
-		global $woocommerce;
 		$this->id = ODWP_WC_SIMPLESTATS;
 		$this->method_title = __('Simple Stats Plugin for WooCommerce', ODWP_WC_SIMPLESTATS);
 		$this->method_description = __('Options for <b>Simple Stats Plugin for WooCommerce</b> plugin.', ODWP_WC_SIMPLESTATS);
