@@ -198,7 +198,8 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
 	public function sanitize_settings($settings) {
     $opts = array(
       'enable' => 'no',
-      'enable_random' => 'no'
+      'enable_random' => 'no',
+      'enable_cron' => 'no'
     );
 
     if (!is_array($settings)) {

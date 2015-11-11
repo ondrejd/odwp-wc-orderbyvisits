@@ -284,7 +284,11 @@ class ODWP_WC_SimpleStats {
       return;
     }
 
-    $use_rand = self::get_integration()->is_enabled_random();
+    $integration = self::get_integration();
+    $use_rand = false;
+    if (($integration instanceof ODWP_WC_SimpleStats_Integration)) {
+      $use_rand = self::get_integration()->is_enabled_random();
+    }
 
     foreach ($all_products as $p) {
       $viewed = (int)$p->viewed;

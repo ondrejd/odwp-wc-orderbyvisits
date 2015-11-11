@@ -56,6 +56,10 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 
 == Changelog ==
 
+= 0.2.10 =
+* fixed bug that occured after plugin's activation
+* updated localization
+
 = 0.2.9 =
 * added _Enable CRON_ option and corresponding functionality
 

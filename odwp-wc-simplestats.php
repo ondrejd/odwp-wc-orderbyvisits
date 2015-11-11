@@ -3,7 +3,7 @@
  * Plugin Name: Simple Stats for WooCommerce
  * Plugin URI: https://github.com/ondrejd/odwp-wc-simplestats
  * Description: Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products.
- * Version: 0.2.9
+ * Version: 0.2.10
  * Author: Ondřej Doněk
  * Author URI: http://ondrejdonek.blogspot.cz/
  * Requires at least: 4.3

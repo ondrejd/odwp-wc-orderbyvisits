@@ -54,6 +54,11 @@ Because you can use them in various ways - for example custom ordering of produc
 * [ ] more products statistics and custom sorting - (added/removed from cart etc...)
 * [ ] publish on [WordPress Plugins](https://wordpress.org/plugins) site
 
+### 0.2.10
+
+* fixed bug that occured after plugin's activation
+* updated localization
+
 ### 0.2.9
 
 * added _Enable CRON_ option and corresponding functionality
