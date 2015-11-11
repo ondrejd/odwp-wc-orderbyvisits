@@ -29,6 +29,12 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
    */
   protected $enable_random = 'no';
 
+  /**
+   * @since 0.2.9
+   * @var boolean $enable_cron
+   */
+  protected $enable_cron = 'no';
+
 	/**
 	 * Init and hook in the integration.
    *
@@ -47,6 +53,19 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
 
 		$this->enable = $this->get_option('enable');
 		$this->enable_random = $this->get_option('enable_random');
+		$this->enable_cron = $this->get_option('enable_cron');
+
+    if ($this->is_enabled_cron() === true) {
+      if (!wp_next_scheduled(ODWP_WC_SIMPLESTATS . '-cron_event_hook')) {
+        wp_schedule_event(time(), 'daily', ODWP_WC_SIMPLESTATS . '-cron_event_hook');
+      }
+    } else {
+      $timestamp = wp_next_scheduled(ODWP_WC_SIMPLESTATS . '-cron_event_hook');
+
+      if ($timestamp) {
+        wp_unschedule_event($timestamp, ODWP_WC_SIMPLESTATS . '-cron_event_hook', array());
+      }
+    }
 
 		add_action('woocommerce_update_options_integration_'. $this->id, array($this, 'process_admin_options'));
 		add_filter('woocommerce_settings_api_sanitized_fields_'.$this->id, array($this, 'sanitize_settings'));
@@ -73,6 +92,17 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
     return ($this->enable_random === 'yes');
   } // end is_enabled_random()
 
+  /**
+   * Returns `TRUE` if updating of order is not made directly but after
+   * CRON event is called.
+   *
+   * @return boolean
+   * @since 0.2.9
+   */
+  public function is_enabled_cron() {
+    return ($this->enable_cron === 'yes');
+  } // end is_enabled_cron()
+
 	/**
 	 * Initialize integration settings form fields.
 	 *
@@ -94,6 +124,13 @@ class ODWP_WC_SimpleStats_Integration extends WC_Integration {
         'description'       => __('Check if you want random ordering for products with same count of visits.', ODWP_WC_SIMPLESTATS),
         'desc_tip'          => true,
         'default'           => 'yes'
+      ),
+      'enable_cron' => array(
+        'title'             => __('Enable CRON', ODWP_WC_SIMPLESTATS),
+        'type'              => 'checkbox',
+        'description'       => __('Check if you want to update ordering via <em>wp_cron</em> once per day instead of immediatelly.', ODWP_WC_SIMPLESTATS),
+        'desc_tip'          => true,
+        'default'           => 'no'
       ),
       'generate_btn' => array(
         'title'             => __( 'Generate order', ODWP_WC_SIMPLESTATS),

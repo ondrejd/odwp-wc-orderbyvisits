@@ -56,6 +56,9 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 
 == Changelog ==
 
+= 0.2.9 =
+* added _Enable CRON_ option and corresponding functionality
+
 = 0.2.6 =
 * fixed code in `ODWP_WC_SimpleStats_Integration`
 

@@ -86,7 +86,21 @@ class ODWP_WC_SimpleStats {
       // update product's meta keyes with our order value
       add_action('save_post', array($this, 'update_post_meta'), 101, 2);
     }
+
+    add_action(ODWP_WC_SIMPLESTATS . '-cron_event_hook', array($this, 'cron_event'));
   } // end init()
+
+  /**
+   * @return void
+   * @since 0.2.9
+   */
+  public static function cron_event() {
+    if (self::get_integration()->is_enabled_cron() !== true) {
+      return;
+    }
+
+    self::auto_update_all_posts_meta();
+  } // end cron_event()
 
   /**
    * Returns our integration.
@@ -144,13 +158,19 @@ class ODWP_WC_SimpleStats {
       $wpdb->query(
         'INSERT INTO `'.$table.'` VALUES (NULL,'.$pid.',1,0) '
       );
-      update_post_meta($pid, '_odwpwcss_viewed', 1);
+
+      if (self::get_integration()->is_enabled_cron() !== true) {
+        update_post_meta($pid, '_odwpwcss_viewed', 1);
+      }
     } else {
       $viewed = (int)$row->viewed + 1;
       $wpdb->query(
         'UPDATE `'.$table.'` SET `viewed`='.$viewed.' WHERE `post_ID`='.$pid.' '
       );
-      update_post_meta($pid, '_odwpwcss_viewed', $viewed);
+
+      if (self::get_integration()->is_enabled_cron() !== true) {
+        update_post_meta($pid, '_odwpwcss_viewed', $viewed);
+      }
     }
   } // end count_detail_visit()
 
