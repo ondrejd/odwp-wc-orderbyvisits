@@ -19,15 +19,15 @@ if (!class_exists('WC_Integration_Demo_Integration')):
 class ODWP_WC_SimpleStats_Integration extends WC_Integration {
   /**
    * @since 0.1.0
-   * @var boolean $enable
+   * @var boolean $enable Possible values ['yes', 'no'].
    */
-  protected $enable = false;
+  protected $enable = 'no';
 
   /**
    * @since 0.2.5
-   * @var boolean $enable_random
+   * @var boolean $enable_random Possible values ['yes', 'no'].
    */
-  protected $enable_random = false;
+  protected $enable_random = 'no';
 
 	/**
 	 * Init and hook in the integration.

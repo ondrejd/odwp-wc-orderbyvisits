@@ -54,6 +54,10 @@ Because you can use them in various ways - for example custom ordering of produc
 * [ ] more products statistics and custom sorting - (added/removed from cart etc...)
 * [ ] publish on [WordPress Plugins](https://wordpress.org/plugins) site
 
+### 0.2.6
+
+* fixed code in `ODWP_WC_SimpleStats_Integration`
+
 ### 0.2.5
 
 * fixed that `enable` options was not used

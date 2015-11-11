@@ -56,6 +56,9 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 
 == Changelog ==
 
+= 0.2.6 =
+* fixed code in `ODWP_WC_SimpleStats_Integration`
+
 = 0.2.5 =
 * fixed that `enable` options was not used
 * added option `enable_random` for enabling/disabling random order for products with same visits count.
