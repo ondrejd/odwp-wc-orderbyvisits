@@ -21,6 +21,7 @@
 
 defined('ODWP_WC_SIMPLESTATS') || define('ODWP_WC_SIMPLESTATS', 'odwp-wc-simplestats');
 defined('ODWP_WC_SIMPLESTATS_FILE') || define('ODWP_WC_SIMPLESTATS_FILE', __FILE__);
+defined('ODWP_WC_SIMPLESTATS_VERSION') || define('ODWP_WC_SIMPLESTATS_VERSION', '0.2.10');
 
 
 if (!function_exists('odwpwcss_check_requirements')):

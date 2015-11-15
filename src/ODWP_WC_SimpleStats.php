@@ -16,8 +16,8 @@ if (!class_exists('ODWP_WC_SimpleStats')):
  * @since 0.1.0
  */
 class ODWP_WC_SimpleStats {  
-  const ID = 'odwp-wc-simplestats';
-  const VERSION = '0.1.0';
+  const ID = ODWP_WC_SIMPLESTATS;
+  const VERSION = ODWP_WC_SIMPLESTATS_VERSION;
 
   /**
    * Constructor.
