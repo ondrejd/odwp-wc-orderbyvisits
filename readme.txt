@@ -1,32 +1,32 @@
-=== Simple Stats for WooCommerce ===
+=== Order By Visits ===
 Contributors: Ondřej Doněk
-Donate link: https://github.com/ondrejd/odwp-wc-simplestats
+Donate link: https://github.com/ondrejd/odwp-wc-orderbyvisits
 License: Mozilla Public License 2.0
 Tags: woocommerce,statistics
 Requires at least: 4.3
-Tested up to: 4.3.1
-Stable tag: 0.2.5
+Tested up to: 4.6.1
+Stable tag: 0.3.0
 
-Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products and add custom products sorting based on them.
+Plugin for WordPress with WooCommerce installed that enables simple visits statistics on e-shop products and add custom products sorting based on them.
 
 
 == Description ==
 
-Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products and add custom products sorting based on them.
+Plugin for WordPress with WooCommerce installed that enables simple visits statistics on e-shop products and add custom products sorting based on them.
 
 Main features:
 
 * statistics for visits per WooCommerce's product detail
-- custom products sorting based on how many times were product's detail viewed
+* custom products sorting based on how many times were product's detail viewed
 
 
 == Installation ==
 
 This section describes how to install the plugin and get it working.
 
-1. Upload plugin's folder `odwp-wc-simplestats` to the `/wp-content/plugins/` directory
+1. Upload plugin's folder `odwp-wc-orderbyvisits` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. For other details see [plugin's home page](https://github.com/ondrejd/odwp-wc-simplestats)
+3. For other details see [plugin's home page](https://github.com/ondrejd/odwp-wc-orderbyvisits)
 
 
 == Frequently Asked Questions ==
@@ -55,6 +55,10 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 
 
 == Changelog ==
+
+= 0.3.0 =
+* Tested on WordpRess 4.6.1
+* renamed to "Order By Visits"
 
 = 0.2.10 =
 * fixed bug that occured after plugin's activation

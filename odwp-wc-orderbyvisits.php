@@ -1,30 +1,30 @@
 <?php
 /**
- * Plugin Name: Simple Stats for WooCommerce
- * Plugin URI: https://github.com/ondrejd/odwp-wc-simplestats
- * Description: Simple plugin for WordPress with WooCommerce that enables simple stats on e-shop products.
- * Version: 0.2.10
+ * Plugin Name: Order By Visits
+ * Plugin URI: https://github.com/ondrejd/odwp-wc-orderbyvisits
+ * Description: Plugin for WordPress with WooCommerce installed that enables simple visits statistics on e-shop products and add custom products sorting based on them.
+ * Version: 0.3.0
  * Author: Ondřej Doněk
- * Author URI: http://ondrejdonek.blogspot.cz/
+ * Author URI: http://ondrejd.info/
  * Requires at least: 4.3
  * Tested up to: 4.3.1
  *
- * Text Domain: odwp-wc-simplestats
+ * Text Domain: odwp-wc-orderbyvisits
  * Domain Path: /languages/
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
- * @link https://github.com/ondrejd/odwp-wc-simplestats for the canonical source repository
+ * @link https://github.com/ondrejd/odwp-wc-orderbyvisits for the canonical source repository
  * @license https://www.mozilla.org/MPL/2.0/ Mozilla Public License 2.0
- * @package odwp-wc-simplestats
+ * @package odwp-wc-orderbyvisits
  */
 
 
-defined('ODWP_WC_SIMPLESTATS') || define('ODWP_WC_SIMPLESTATS', 'odwp-wc-simplestats');
-defined('ODWP_WC_SIMPLESTATS_FILE') || define('ODWP_WC_SIMPLESTATS_FILE', __FILE__);
-defined('ODWP_WC_SIMPLESTATS_VERSION') || define('ODWP_WC_SIMPLESTATS_VERSION', '0.2.10');
+defined('ODWP_WC_ORDERBYVISITS') || define('ODWP_WC_ORDERBYVISITS', 'odwp-wc-orderbyvisits');
+defined('ODWP_WC_ORDERBYVISITS_FILE') || define('ODWP_WC_ORDERBYVISITS_FILE', __FILE__);
+defined('ODWP_WC_ORDERBYVISITS_VERSION') || define('ODWP_WC_ORDERBYVISITS_VERSION', '0.3.0');
 
 
-if (!function_exists('odwpwcss_check_requirements')):
+if (!function_exists('odwpwcobv_check_requirements')):
 
 /**
  * Check if requirements are met.
@@ -35,18 +35,18 @@ if (!function_exists('odwpwcss_check_requirements')):
  * @since 0.1.0
  * @todo Current solution doesn't work for WPMU... 
  */
-function odwpwcss_check_requirements() {
+function odwpwcobv_check_requirements() {
   if (in_array('woocommerce/woocommerce.php', (array) get_option('active_plugins', array()))) {
     return true;
   }
 
   return false;
-} // end odwpwcss_check_requirements()
+} // end odwpwcobv_check_requirements()
 
 endif;
 
 
-if (!function_exists('odwpwcss_deactivate_raw')):
+if (!function_exists('odwpwcobv_deactivate_raw')):
 
 /**
  * Deactivates plugin directly by updating WP option `active_plugins`.
@@ -57,21 +57,21 @@ if (!function_exists('odwpwcss_deactivate_raw')):
  * @since 0.1.0
  * @todo Check if using `deactivate_plugins` whouldn't be better.
  */
-function odwpwcss_deactivate_raw() {
+function odwpwcobv_deactivate_raw() {
   $plugins = get_option('active_plugins');
   $out = array();
   foreach($plugins as $key => $val) {
-    if($val != ODWP_WC_SIMPLESTATS.'/'.ODWP_WC_SIMPLESTATS.'.php') {
+    if($val != ODWP_WC_ORDERBYVISITS.'/'.ODWP_WC_ORDERBYVISITS.'.php') {
       $out[$key] = $val;
     }
   }
   update_option('active_plugins', $out);
-} // end odwpwcss_deactivate_raw()
+} // end odwpwcobv_deactivate_raw()
 
 endif;
 
 
-if (!function_exists('odwpwcss_minreq_error')):
+if (!function_exists('odwpwcobv_minreq_error')):
 
 /**
  * Shows error in WP administration that minimum requirements were not met.
@@ -80,24 +80,24 @@ if (!function_exists('odwpwcss_minreq_error')):
  * @return void
  * @since 0.1.0
  */
-function odwpwcss_minreq_error() {
+function odwpwcobv_minreq_error() {
   echo ''.
-    '<div id="'.ODWP_WC_SIMPLESTATS.'_message1" class="error notice is-dismissible">'.
+    '<div id="'.ODWP_WC_ORDERBYVISITS.'_message1" class="error notice is-dismissible">'.
       '<p>'.
-        __('The <b>Simple Stats Plugin for WooCommerce</b> plugin requires <b>WooCommerce</b> plugin installed and activated.', ODWP_WC_SIMPLESTATS).
+        __('The <b>Simple Stats Plugin for WooCommerce</b> plugin requires <b>WooCommerce</b> plugin installed and activated.', ODWP_WC_ORDERBYVISITS).
       '</p>'.
     '</div>'.
-    '<div id="'.ODWP_WC_SIMPLESTATS.'_message2" class="updated notice is-dismissible">'.
+    '<div id="'.ODWP_WC_ORDERBYVISITS.'_message2" class="updated notice is-dismissible">'.
       '<p>'.
-        __('Plugin <b>Simple Stats Plugin for WooCommerce</b> was <b>deactivated</b>.', ODWP_WC_SIMPLESTATS).
+        __('Plugin <b>Simple Stats Plugin for WooCommerce</b> was <b>deactivated</b>.', ODWP_WC_ORDERBYVISITS).
       '</p>'.
     '</div>';
-} // end odwpwcss_minreq_error()
+} // end odwpwcobv_minreq_error()
 
 endif;
 
 
-if (!function_exists('odwpwcss_activate')):
+if (!function_exists('odwpwcobv_activate')):
 
 /**
  * Activates the plugin.
@@ -106,7 +106,7 @@ if (!function_exists('odwpwcss_activate')):
  * @return void
  * @since 0.2.0
  */
-function odwpwcss_activate() {
+function odwpwcobv_activate() {
   global $wpdb;
   $table = $wpdb->prefix . 'simplestats';
 
@@ -120,13 +120,13 @@ function odwpwcss_activate() {
 
   $wpdb->query($sql);
 
-  ODWP_WC_SimpleStats::auto_update_all_posts_meta();
-} // end odwpwcss_activate()
+  ODWP_WC_OrderByVisits::auto_update_all_posts_meta();
+} // end odwpwcobv_activate()
 
 endif;
 
 
-if (!function_exists('odwpwcss_uninstall')):
+if (!function_exists('odwpwcobv_uninstall')):
 
 /**
  * Uninstall the plugin.
@@ -135,7 +135,7 @@ if (!function_exists('odwpwcss_uninstall')):
  * @return void
  * @since 0.1.1
  */
-function odwpwcss_uninstall() {
+function odwpwcobv_uninstall() {
   if (!defined('WP_UNINSTALL_PLUGIN')) {
     return;
   }
@@ -143,26 +143,26 @@ function odwpwcss_uninstall() {
   global $wpdb;
   $table = $wpdb->prefix . 'simplestats';
   $wpdb->query('DROP TABLE `'.$table.'` ');
-} // end odwpwcss_uninstall()
+} // end odwpwcobv_uninstall()
 
 endif;
 
 
 // Our plug-in is dependant on WooCommerce
-if (!odwpwcss_check_requirements()) {
-  odwpwcss_deactivate_raw();
+if (!odwpwcobv_check_requirements()) {
+  odwpwcobv_deactivate_raw();
 
   if (is_admin()) {
-    add_action('admin_head', 'odwpwcss_minreq_error');
+    add_action('admin_head', 'odwpwcobv_minreq_error');
   }
 
   return;
 }
 
 // Everything is OK - initialize the plugin
-include_once dirname(__FILE__).'/src/ODWP_WC_SimpleStats.php';
+include_once dirname(__FILE__).'/src/ODWP_WC_OrderByVisits.php';
 
 /**
- * @var ODWP_WC_SimpleStats
+ * @var ODWP_WC_OrderByVisits
  */
-$ODWP_WC_SimpleStats = new ODWP_WC_SimpleStats();
+$ODWP_WC_OrderByVisits = new ODWP_WC_OrderByVisits();

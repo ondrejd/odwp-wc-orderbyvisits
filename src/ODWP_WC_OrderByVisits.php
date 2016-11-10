@@ -1,23 +1,25 @@
 <?php
 /**
- * Simple Stats for WooCommerce
+ * Plugin for WordPress with WooCommerce installed that enables simple 
+ * visits statistics on e-shop products and add custom products sorting 
+ * based on them.
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
- * @link https://github.com/ondrejd/odwp-wc-simplestats for the canonical source repository
+ * @link https://github.com/ondrejd/odwp-wc-orderbyvisits for the canonical source repository
  * @license https://www.mozilla.org/MPL/2.0/ Mozilla Public License 2.0
- * @package odwp-wc-simplestats
+ * @package odwp-wc-orderbyvisits
  */
 
-if (!class_exists('ODWP_WC_SimpleStats')):
+if (!class_exists('ODWP_WC_OrderByVisits')):
 
 /**
  * Main class of the plug-in.
  * 
  * @since 0.1.0
  */
-class ODWP_WC_SimpleStats {  
-  const ID = ODWP_WC_SIMPLESTATS;
-  const VERSION = ODWP_WC_SIMPLESTATS_VERSION;
+class ODWP_WC_OrderByVisits {  
+  const ID = ODWP_WC_ORDERBYVISITS;
+  const VERSION = ODWP_WC_ORDERBYVISITS_VERSION;
 
   /**
    * Constructor.
@@ -29,8 +31,8 @@ class ODWP_WC_SimpleStats {
    * @uses register_uninstall_hook()
    */
   public function __construct() {
-    register_activation_hook(ODWP_WC_SIMPLESTATS_FILE, 'odwpwcss_activate');
-    register_uninstall_hook(ODWP_WC_SIMPLESTATS_FILE, 'odwpwcss_uninstall');
+    register_activation_hook(ODWP_WC_ORDERBYVISITS_FILE, 'odwpwcss_activate');
+    register_uninstall_hook(ODWP_WC_ORDERBYVISITS_FILE, 'odwpwcss_uninstall');
 
     add_action('init', array($this, 'load_plugin_textdomain'));
     add_action('plugins_loaded', array($this, 'init'));
@@ -44,8 +46,8 @@ class ODWP_WC_SimpleStats {
    * @uses load_plugin_textdomain()
    */
   public function load_plugin_textdomain() {
-    $path = ODWP_WC_SIMPLESTATS.'/languages';
-    load_plugin_textdomain(ODWP_WC_SIMPLESTATS, false, $path);
+    $path = ODWP_WC_ORDERBYVISITS.'/languages';
+    load_plugin_textdomain(ODWP_WC_ORDERBYVISITS, false, $path);
   } // end load_plugin_textdomain()
 
   /**
@@ -60,7 +62,7 @@ class ODWP_WC_SimpleStats {
   public function init() {
     // add our WooCommerce integration form
     if (class_exists('WC_Integration')) {
-      include_once dirname(__FILE__).'/ODWP_WC_SimpleStats_Integration.php';
+      include_once dirname(__FILE__).'/ODWP_WC_OrderByVisits_Integration.php';
       add_filter('woocommerce_integrations', array($this, 'add_integration'));
 
       if (is_admin()) {
@@ -87,7 +89,7 @@ class ODWP_WC_SimpleStats {
       add_action('save_post', array($this, 'update_post_meta'), 101, 2);
     }
 
-    add_action(ODWP_WC_SIMPLESTATS . '-cron_event_hook', array($this, 'cron_event'));
+    add_action(ODWP_WC_ORDERBYVISITS . '-cron_event_hook', array($this, 'cron_event'));
   } // end init()
 
   /**
@@ -105,15 +107,15 @@ class ODWP_WC_SimpleStats {
   /**
    * Returns our integration.
    *
-   * @return ODWP_WC_SimpleStats_Integration|null
+   * @return ODWP_WC_OrderByVisits_Integration|null
    * @since 0.2.5
    * @static
    * @uses WC()
    */
   public static function get_integration() {
     $integrations = WC()->integrations->get_integrations();
-    if (array_key_exists(ODWP_WC_SIMPLESTATS, $integrations)) {
-      return $integrations[ODWP_WC_SIMPLESTATS];
+    if (array_key_exists(ODWP_WC_ORDERBYVISITS, $integrations)) {
+      return $integrations[ODWP_WC_ORDERBYVISITS];
     }
 
     return null;
@@ -126,7 +128,7 @@ class ODWP_WC_SimpleStats {
    * @return aray
    */
   public function add_integration($integrations) {
-    $integrations[] = 'ODWP_WC_SimpleStats_Integration';
+    $integrations[] = 'ODWP_WC_OrderByVisits_Integration';
     return $integrations;
   } // end add_integration($integrations)
 
@@ -219,7 +221,7 @@ class ODWP_WC_SimpleStats {
    */
   public function modify_sorting_settings($sortby) {
     if (self::get_integration()->is_enabled()) {
-      $sortby['by_views'] = __('Popularity (visits)', ODWP_WC_SIMPLESTATS);
+      $sortby['by_views'] = __('Popularity (visits)', ODWP_WC_ORDERBYVISITS);
     }
     
     return $sortby;
@@ -286,7 +288,7 @@ class ODWP_WC_SimpleStats {
 
     $integration = self::get_integration();
     $use_rand = false;
-    if (($integration instanceof ODWP_WC_SimpleStats_Integration)) {
+    if (($integration instanceof ODWP_WC_OrderByVisits_Integration)) {
       $use_rand = self::get_integration()->is_enabled_random();
     }
 
@@ -335,25 +337,25 @@ class ODWP_WC_SimpleStats {
   public function add_admin_footer_js() {?>
     <script type="text/javascript">
 jQuery(document).ready(function($) {
-  $('#<?= ODWP_WC_SIMPLESTATS?>odwp-wc-simplestats_generate_btn').prop('disabled', false).click(function() {
+  $('#<?= ODWP_WC_ORDERBYVISITS?>odwp-wc-orderbyvisits_generate_btn').prop('disabled', false).click(function() {
     // show progress image and disable the button
     jQuery(this).prop('disabled', true);
-    jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_img').show();
-    jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_msg').show();
+    jQuery('#<?= ODWP_WC_ORDERBYVISITS?>_progress_img').show();
+    jQuery('#<?= ODWP_WC_ORDERBYVISITS?>_progress_msg').show();
 
     // since WP 2.8 is `ajaxurl` always defined in the admin header 
     // and points to `admin-ajax.php`
     jQuery.post(ajaxurl, { 'action': 'odwpwcss_generate_random' }, function(response) {
-      jQuery('#<?= ODWP_WC_SIMPLESTATS?>odwp-wc-simplestats_generate_btn').prop('disabled', false);
-      jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_img').hide();
+      jQuery('#<?= ODWP_WC_ORDERBYVISITS?>odwp-wc-orderbyvisits_generate_btn').prop('disabled', false);
+      jQuery('#<?= ODWP_WC_ORDERBYVISITS?>_progress_img').hide();
 
       if (response === 'OK') {
-        jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_msg').html(
-          "<?= __('Random values were generated successfully.', ODWP_WC_SIMPLESTATS)?>"
+        jQuery('#<?= ODWP_WC_ORDERBYVISITS?>_progress_msg').html(
+          "<?= __('Random values were generated successfully.', ODWP_WC_ORDERBYVISITS)?>"
         );
       } else {
-        jQuery('#<?= ODWP_WC_SIMPLESTATS?>_progress_msg').html(
-          "<?= __('There was an error while generating random values. Please try again or contact your administrator.', ODWP_WC_SIMPLESTATS)?>"
+        jQuery('#<?= ODWP_WC_ORDERBYVISITS?>_progress_msg').html(
+          "<?= __('There was an error while generating random values. Please try again or contact your administrator.', ODWP_WC_ORDERBYVISITS)?>"
         );
       }
     });
@@ -366,7 +368,7 @@ jQuery(document).ready(function($) {
    * Callback for Ajax action on "Generate order" button.
    *
    * @return void
-   * @see ODWP_WC_SimpleStats::add_admin_footer_js()
+   * @see ODWP_WC_OrderByVisits::add_admin_footer_js()
    * @since 0.2.5
    * @uses wp_die()
    */
@@ -380,6 +382,6 @@ jQuery(document).ready(function($) {
 
     wp_die();
   } // end admin_ajax_generate_random()
-} // End of ODWP_WC_SimpleStats
+} // End of ODWP_WC_OrderByVisits
 
 endif;
