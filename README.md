@@ -1,58 +1,73 @@
-# Simple Stats for WooCommerce
+# Order by Visits Plugin for WooCommerce
 
-Simple plugin for [WordPress](https://wordpress.org/) with [WooCommerce](https://wordpress.org/plugins/woocommerce/) installed that enables simple visits statistics on e-shop products and add custom products sorting based on them.
+Plugin for [WordPress][1] and [WooCommerce][2] that adds new products _orderby_ rules - __Order by popularity (views)__ and __Order by popularity (sales)__.
 
-## Dontations
+## Donations
 
 If your like this plugin and you want to be maintained and improved more frequently consider donation:
 
-[![Make donation](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif "PayPal - The safer, eaisier way to pay online!")](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ondrejd%40gmail%2ecom&lc=CZ&item_name=ondrejd%2fodwp%2dwc%2dsimplestats&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
+[![Make donation](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif "PayPal - The safer, eaisier way to pay online!")][3]
 
 ## Description
 
 Main features:
 
-- statistics for visits per WooCommerce's product detail page
-- custom products sorting based on how many times were product's detail viewed
+* simple statistics about how many times was product displayed,
+* new products _orderby_ rules - __Order by popularity (views)__ and __Order by popularity (sales)__,
+* Czech and English localization.
 
 ## Installation
 
-This section describes how to install the plugin and get it working.
+Plugin's installation is easy:
 
-1. Upload plugin's folder `odwp-wc-simplestats` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. For other details see [plugin's home page](https://github.com/ondrejd/odwp-wc-simplestats)
+1. Upload plugin's folder `odwp-wc-orderbypopularity` to the `/wp-content/plugins/` directory
+2. Activate the plugin through the __Plugins__ menu in [WordPress][1]
+3. For more details see [plugin's home page][4]
 
 ## Frequently Asked Questions
 
-> When I should use this plug-in?
+> When I should use this plugin?
 
-Whenever you want simple statistics for your WooCommerce installation.
+Whenever you want some more products _orderby_ rules on __WooCommerce__ shop page.
 
-> Why I should want these simple statistic data?
+> What data are collected?
 
-Because you can use them in various ways - for example custom ordering of products.
+Just count of display of product's detail page - value is saved as a product's meta value.
 
 ## Screenshots
 
-1. Screen of _WP Admin_ after successfull installation of our plugin:
-   ![Plugin successfully installed.](screenshot-1.png?raw=true "Plugin successfully installed.")
-2. Screen of _WP Admin_ after unsuccessfull installation because of <b>WooCommerce</b> is missing:
-   ![Plugin not installed - WooCommerce is missing.](screenshot-2.png?raw=true "Plugin not installed - WooCommerce is missing.")
-3. Screen with settings of our plugin (_Wp Admin - WooCommerce - Settings_):
-   ![Plugin's integration within WooCommerce'](screenshot-3.png?raw=true "Plugin's integration within WooCommerce")
-4. Here we are selecting our custom products ordering (_Wp Admin - WooCommerce - Products - Display_):
-   ![Selecting our custom WooCommerce products ordering'](screenshot-4.png?raw=true "Selecting our custom WooCommerce products ordering")
-5. Here we are selecting our custom products ordering (_front-end_):
-   ![Selecting our custom WooCommerce products ordering on FE'](screenshot-5.png?raw=true "Selecting our custom WooCommerce products ordering on FE")
+1. Updated _orderby_ select
+   ![Updated orderby select'](screenshot-1.png "Updated orderby select")
+2. Settings of the plugin (_Admin -> WooCommerce -> Integration_):
+   ![Settings of the plugin](screenshot-2.png "Settings of the plugin")
+3. Updated default _orderby_ select (_Admin -> WooCommerce -> Products -> Display_):
+   ![Updated default orderby select'](screenshot-3.png "Updated default orderby select")
+
+## License
+
+This Source Code is subject to the terms of the [GNU General Public License 3.0][6].
 
 ## Changelog/ToDo
 
 ### ~1.0
 
-* [ ] tracking statistics about e-shop categories
-* [ ] more products statistics and custom sorting - (added/removed from cart etc...)
-* [ ] publish on [WordPress Plugins](https://wordpress.org/plugins) site
+* [ ] fix all issues
+* [ ] ~~add more localizations~~
+* [ ] publish on [WordPress Plugins][5] site
+
+### 0.5.0
+
+* [x] ~~code completely refactored~~
+* [x] ~~tested on [WordPress 4.8.2][1] a [WooCommerce 3.1.2][2]~~
+* [ ] released on [GitHub][4]'s repository
+* [ ] finish functionality for button __Update all products__,
+* [x] ~~for __Order by popularity (sales)__ use meta key `total_sales`~~,
+* [ ] move JavaScript to standalone file (see `ODWP_WC_OrderByVisits::add_admin_footer_js()`).
+
+### 0.3.0
+
+* tested on [WordPress 4.6.1][1]
+* renamed to __Order By Visits__
 
 ### 0.2.10
 
@@ -61,7 +76,7 @@ Because you can use them in various ways - for example custom ordering of produc
 
 ### 0.2.9
 
-* added _Enable CRON_ option and corresponding functionality
+* added __Enable CRON__ option and corresponding functionality
 
 ### 0.2.6
 
@@ -77,7 +92,7 @@ Because you can use them in various ways - for example custom ordering of produc
 
 * count how many times were project's detail viewed
 * count how many times were project added to the cart
-* adding our custom products ordering (_Popularity (visits)_)
+* adding our custom products ordering (__Popularity (visits)__)
 * add Czech localization
 
 ### 0.1.1
@@ -88,4 +103,11 @@ Because you can use them in various ways - for example custom ordering of produc
 ### 0.1.0
 
 * initial public version
-* source codes added to __GitHub__
+* source codes added to [GitHub][4]
+
+[1]:https://wordpress.org/
+[2]:https://wordpress.org/plugins/woocommerce/
+[3]:https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ondrejd%40gmail%2ecom&lc=CZ&item_name=ondrejd%2fodwp%2dwc%2dsimplestats&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
+[4]:https://github.com/ondrejd/odwp-wc-simplestats
+[5]:https://wordpress.org/plugins
+[6]:https://www.gnu.org/licenses/gpl-3.0.en.html

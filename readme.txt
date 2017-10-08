@@ -4,20 +4,20 @@ Donate link: https://github.com/ondrejd/odwp-wc-orderbyvisits
 License: Mozilla Public License 2.0
 Tags: woocommerce,statistics
 Requires at least: 4.3
-Tested up to: 4.6.1
-Stable tag: 0.3.0
+Tested up to: 4.8.2
+Stable tag: 0.5.0
 
-Plugin for WordPress with WooCommerce installed that enables simple visits statistics on e-shop products and add custom products sorting based on them.
-
+Plugin for WordPress and WooCommerce that adds new products orderby rules - Order by popularity (views) and Order by popularity (sales).
 
 == Description ==
 
-Plugin for WordPress with WooCommerce installed that enables simple visits statistics on e-shop products and add custom products sorting based on them.
+Plugin for WordPress and WooCommerce that adds new products orderby rules - Order by popularity (views)and Order by popularity (sales).
 
 Main features:
 
-* statistics for visits per WooCommerce's product detail
-* custom products sorting based on how many times were product's detail viewed
+* simple statistics about how many times was product displayed,
+* new products _orderby_ rules - Order by popularity (views) and Order by popularity (sales),
+* Czech and English localization.
 
 
 == Installation ==
@@ -31,13 +31,13 @@ This section describes how to install the plugin and get it working.
 
 == Frequently Asked Questions ==
 
-= When I should use this plug-in? =
+= When I should use this plugin? =
 
-Whenever you want simple statistics for your WooCommerce installation.
+Whenever you want some more products orderby rules on WooCommerce shop page.
 
 = Why I should want these simple statistic data? =
 
-Because you can use them in various ways - for example custom ordering of products.
+Just count of display of product's detail page - value is saved as a product's meta value.
 
 
 == Screenshots ==
@@ -45,19 +45,22 @@ Because you can use them in various ways - for example custom ordering of produc
 1. `screenshot-1.png`
 2. `screenshot-2.png`
 3. `screenshot-3.png`
-4. `screenshot-4.png`
-5. `screenshot-5.png`
 
 
 == License ==
 
-This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+This Source Code is subject to the terms of the GNU General Public License 3.0.
 
 
 == Changelog ==
 
+= 0.5.0 =
+* code refactored and fixed
+* tested on WordPress 4.8.2 a WooCommerce 3.1.2
+* released on GitHub
+
 = 0.3.0 =
-* Tested on WordpRess 4.6.1
+* tested on WordPress 4.6.1
 * renamed to "Order By Visits"
 
 = 0.2.10 =
