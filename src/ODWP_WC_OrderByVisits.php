@@ -191,20 +191,6 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
         }
 
         /**
-         * Write message into WordPress log file.
-         * @param string $msg
-         * @return void
-         * @since 0.5.0
-         */
-        public static function log( $msg ) {
-            if( ! function_exists( 'odwpdl_write_log') ) {
-                return;
-            }
-
-            odwpdl_write_log( $msg );
-        }
-
-        /**
          * @internal Hook for `woocommerce_after_single_product_summary` action.
          * @global wpdb $wpdb
          * @return void
@@ -214,12 +200,6 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
          */
         public function count_detail_visit() {
             global $wpdb;
-
-            self::log(
-                "ODWP_WC_OrderByVisits::count_detail_visit...\n" .
-                "[PROJECT_ID] : '$project_id'\n' .
-                '[VIEWED]     : '$viewed'\n"
-            );
 
             $project_id = intval( get_the_ID() );
             $viewed = intval( get_post_meta( $project_id, '_odwpwcobv_viewed', true ) );
@@ -287,8 +267,6 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
          */
         public static function update_all_products() {
             global $wpdb;
-
-            self::log( 'ODWP_WC_OrderByVisits::update_all_products' );
 
             $integration = self::get_integration();
             $product_ids = new WP_Query( [
@@ -361,13 +339,10 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
          * @uses wp_die
          */
         function admin_ajax_generate_random() {
-            self::log( 'ODWP_WC_OrderByVisits::admin_ajax_generate_random' );
-
             if( current_user_can( 'edit_posts' ) ) {
                 self::update_all_products();
                 echo 'OK';
             } else {
-                self::log( 'User can not perform this operation.' );
                 echo 'ERR';
             }
 
