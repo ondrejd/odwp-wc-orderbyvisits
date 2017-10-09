@@ -13,6 +13,7 @@ If your like this plugin and you want to be maintained and improved more frequen
 Main features:
 
 * simple statistics about how many times was product displayed,
+* possibility to generate random data,
 * new products _orderby_ rules - __Order by popularity (views)__ and __Order by popularity (sales)__,
 * Czech and English localization.
 
@@ -55,13 +56,13 @@ This Source Code is subject to the terms of the [GNU General Public License 3.0]
 
 ### 0.5.0
 
-* [x] ~~code completely refactored~~
-* [x] ~~tested on [WordPress 4.8.2][1] a [WooCommerce 3.1.2][2]~~
-* [ ] released on [GitHub][4]'s repository
-* [x] ~~finish functionality for button __Update products__ on settings page~~,
-* [x] ~~for __Order by popularity (sales)__ use meta key `total_sales`~~,
-* [x] ~~move inline JavaScript to standalone file (`assets/js/admin.js`)~~,
-* [x] ~~move inline CSS to standalone file (`assets/js/admin.css`)~~.
+* code completely refactored
+* tested on [WordPress 4.8.2][1] a [WooCommerce 3.1.2][2]
+* released on [GitHub][4]'s repository
+* finished functionality for button __Update products__ on settings page,
+* for __Order by popularity (sales)__ use meta key `total_sales`,
+* inline JavaScript moved to standalone file (`assets/js/admin.js`),
+* inline CSS moved to standalone file (`assets/js/admin.css`).
 
 ### 0.3.0
 

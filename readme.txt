@@ -16,6 +16,7 @@ Plugin for WordPress and WooCommerce that adds new products orderby rules - Orde
 Main features:
 
 * simple statistics about how many times was product displayed,
+* possibility to generate random data,
 * new products _orderby_ rules - Order by popularity (views) and Order by popularity (sales),
 * Czech and English localization.
 
