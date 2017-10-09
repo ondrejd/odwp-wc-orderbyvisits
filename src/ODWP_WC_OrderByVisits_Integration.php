@@ -106,27 +106,22 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits_Integration' ) ) :
          * @param array $data
          * @return void
          * @since 0.2.5
-         * @todo Move inline CSS into `assets/css/admin.css`!
          * @uses wp_parse_args()
          * @uses wp_kses_post()
          */
         public function generate_button_html( $key, $data ) {
-            $field = 'generate_btn';
-            $data = wp_parse_args(
-                ODWP_WC_ORDERBYVISITS . $this->id . '_' . $key,
-                [
-                    'class'             => 'button-secondary',
-                    'css'               => '',
-                    'custom_attributes' => ['disabled' => 'disabled'],
-                    'desc_tip'          => true,
-                    'description'       => __( 'Update meta values of all products', 'odwp-wc-orderbyvisits' ),
-                    'title'             => __( 'Update meta of products', 'odwp-wc-orderbyvisits' ),
-                ]
-            );
+            $field = 'odwpwcobv_generate_btn';
+            $data = wp_parse_args( ODWP_WC_ORDERBYVISITS . $this->id . '_' . $key, [
+                'class'             => 'button-secondary',
+                'custom_attributes' => ['disabled' => 'disabled'],
+                'desc_tip'          => true,
+                'description'       => __( 'Update <code>viewed</code> meta value of all products', 'odwp-wc-orderbyvisits' ),
+                'title'             => __( 'Update products', 'odwp-wc-orderbyvisits' ),
+            ] );
 
             ob_start();
 ?>
-<tr valign="top">
+<tr valign="top" class="odwpwcobv_table_row">
     <th scope="row" class="titledesc">
         <label for="<?php echo esc_attr( $field ) ?>"><?php echo wp_kses_post( $data['title'] ) ?></label>
         <?php echo $this->get_tooltip_html( $data ) ?>
@@ -134,12 +129,12 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits_Integration' ) ) :
     <td class="forminp">
         <fieldset>
             <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] )?></span></legend>
-            <button class="<?php echo esc_attr( $data['class'] ) ?>" type="button" name="<?php echo esc_attr( $field ) ?>" id="<?php echo esc_attr( $field ) ?>" style="<?php echo esc_attr( $data['css'] ) ?>" <?php echo $this->get_custom_attribute_html( $data ) ?>>
+            <button class="<?php echo esc_attr( $data['class'] ) ?>" type="button" name="<?php echo esc_attr( $field ) ?>" id="<?php echo esc_attr( $field ) ?>" <?php echo $this->get_custom_attribute_html( $data ) ?>>
                 <?php echo wp_kses_post( $data['title'] ) ?>
             </button>
             <?php echo $this->get_description_html( $data ) ?>
-            <img id="<?php echo ODWP_WC_ORDERBYVISITS . '_progress_img' ?>" src="<?php echo get_site_url() . '/wp-admin/images/wpspin_light'; ?>" style="display: none; position: relative; top: 6px;"/>
-            <p id="<?php echo ODWP_WC_ORDERBYVISITS . '_progress_msg' ?>" class="description" style="display:none;"><?php _e( 'Please wait until the button is ready again and the result message is displayed.', 'odwp-wc-orderbyvisits' ) ?></p>
+            <img id="odwpwcobv_progress_img" src="<?php echo get_site_url() . '/wp-admin/images/wpspin_light'; ?>">
+            <p id="odwpwcobv_progress_msg" class="description"><?php _e( 'Please wait until the button is ready again and the result message is displayed.', 'odwp-wc-orderbyvisits' ) ?></p>
         </fieldset>
     </td>
 </tr>

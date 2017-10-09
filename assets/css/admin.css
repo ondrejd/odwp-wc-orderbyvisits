@@ -1,0 +1,17 @@
+/**
+ * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @link https://github.com/ondrejd/odwp-wc-orderbyvisits for the canonical source repository
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @package odwp-wc-orderbyvisits
+ * @since 0.0.1
+ */
+
+#odwpwcobv_progress_img {
+    display: none;
+    position: relative;
+    top: 6px;
+}
+
+#odwpwcobv_progress_msg {
+    visibility: hidden;
+}

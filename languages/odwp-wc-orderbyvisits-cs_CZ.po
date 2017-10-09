@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: odwp-wc-orderbyvisits\n"
-"POT-Creation-Date: 2017-10-08 21:30+0200\n"
-"PO-Revision-Date: 2017-10-08 21:30+0200\n"
+"POT-Creation-Date: 2017-10-09 12:42+0200\n"
+"PO-Revision-Date: 2017-10-09 12:42+0200\n"
 "Last-Translator: \n"
 "Language-Team: Ondřej Doněk <ondrejd@gmail.com>\n"
 "Language: cs_CZ\n"
@@ -27,25 +27,25 @@ msgstr ""
 "Plugin <strong>Řadit dle návštěvnosti</strong> vyžaduje nainstalovaný a "
 "aktivovaný plugin <strong>WooCommerce</strong> ."
 
-#: src/ODWP_WC_OrderByVisits.php:200
-msgid "Order by popularity (views)"
-msgstr "Popularita (návštěvnost)"
-
-#: src/ODWP_WC_OrderByVisits.php:201
-msgid "Order by popularity (sales)"
-msgstr "Popularita (prodeje)"
-
-#: src/ODWP_WC_OrderByVisits.php:342
+#: src/ODWP_WC_OrderByVisits.php:180
 msgid "Random values were generated successfully."
 msgstr "Náhodné hodnoty pořadí byly úspěšně vygenerovány."
 
-#: src/ODWP_WC_OrderByVisits.php:346
+#: src/ODWP_WC_OrderByVisits.php:181
 msgid ""
 "There was an error while generating random values. Please try again or "
 "contact your administrator."
 msgstr ""
 "Při generování náhodných hodnot pořadí se vyskytla chyba. Zkuste operaci "
 "zopakovat a v případě opakování chyby kontaktujte administrátora."
+
+#: src/ODWP_WC_OrderByVisits.php:238
+msgid "Order by popularity (views)"
+msgstr "Popularita (návštěvnost)"
+
+#: src/ODWP_WC_OrderByVisits.php:239
+msgid "Order by popularity (sales)"
+msgstr "Popularita (prodeje)"
 
 #: src/ODWP_WC_OrderByVisits_Integration.php:42
 msgid "Order By Visits"
@@ -86,20 +86,26 @@ msgstr ""
 "Vygenerovat náhodné pořadí pro všechny produkty. Upozornění: toto může (v "
 "závislosti na počtu produktů) chvíli trvat."
 
-#: src/ODWP_WC_OrderByVisits_Integration.php:122
-msgid "Update meta values of all products"
-msgstr "Aktualizovat meta hodnoty všech existujících produktů."
+#: src/ODWP_WC_OrderByVisits_Integration.php:118
+msgid "Update <code>viewed</code> meta value of all products"
+msgstr "Aktualizuje hodnotu meta <code>viewed</code> u všech produktů."
 
-#: src/ODWP_WC_OrderByVisits_Integration.php:123
-msgid "Update meta of products"
-msgstr "Aktualizovat meta hodnoty produktů"
+#: src/ODWP_WC_OrderByVisits_Integration.php:119
+msgid "Update products"
+msgstr "Aktualizovat produkty"
 
-#: src/ODWP_WC_OrderByVisits_Integration.php:142
+#: src/ODWP_WC_OrderByVisits_Integration.php:137
 msgid ""
 "Please wait until the button is ready again and the result message is "
 "displayed."
 msgstr ""
 "Čekejte dokud tlačítko nebude znovu povoleno a výsledná zpráva zobrazena."
+
+#~ msgid "Update meta values of all products"
+#~ msgstr "Aktualizovat meta hodnoty všech existujících produktů."
+
+#~ msgid "Update meta of products"
+#~ msgstr "Aktualizovat produkty"
 
 #~ msgid "Order by popularity (sells)"
 #~ msgstr "Popularita (prodeje)"

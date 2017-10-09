@@ -47,12 +47,10 @@ Just count of display of product's detail page - value is saved as a product's m
 
 This Source Code is subject to the terms of the [GNU General Public License 3.0][6].
 
-## Changelog/ToDo
+## Changelog/TODO
 
 ### ~1.0
 
-* [ ] fix all issues
-* [ ] ~~add more localizations~~
 * [ ] publish on [WordPress Plugins][5] site
 
 ### 0.5.0
@@ -60,9 +58,10 @@ This Source Code is subject to the terms of the [GNU General Public License 3.0]
 * [x] ~~code completely refactored~~
 * [x] ~~tested on [WordPress 4.8.2][1] a [WooCommerce 3.1.2][2]~~
 * [ ] released on [GitHub][4]'s repository
-* [ ] finish functionality for button __Update all products__,
+* [x] ~~finish functionality for button __Update products__ on settings page~~,
 * [x] ~~for __Order by popularity (sales)__ use meta key `total_sales`~~,
-* [ ] move JavaScript to standalone file (see `ODWP_WC_OrderByVisits::add_admin_footer_js()`).
+* [x] ~~move inline JavaScript to standalone file (`assets/js/admin.js`)~~,
+* [x] ~~move inline CSS to standalone file (`assets/js/admin.css`)~~.
 
 ### 0.3.0
 

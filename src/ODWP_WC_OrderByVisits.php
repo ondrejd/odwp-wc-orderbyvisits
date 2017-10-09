@@ -127,8 +127,8 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
 
                 if( is_admin() ) {
                     // add JavaScript for "Generate order" button in integration page
-                    add_action( 'admin_footer', [$this, 'add_admin_footer_js'] );
-                    // add callback for our Ajax action
+                    add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
+                    // add callback for our Ajax action triggered by the button
                     add_action( 'wp_ajax_odwpwcobv_generate_random', [$this, 'admin_ajax_generate_random'] );
                 }
             }
@@ -158,6 +158,44 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
             return $integrations;
         }
 
+        /**
+         * Hook for "admin_enqueue_scripts" action.
+         * @param string $hook
+         * @return void
+         * @since 0.5.0
+         */
+        public function admin_enqueue_scripts( $hook ) {
+            if( $hook != 'woocommerce_page_wc-settings' ) {
+                // We need this only on our integration page, e.g. WC Settings
+                return;
+            }
+
+            $js_file = 'assets/js/admin.js';
+            $js_path = ODWP_WC_ORDERBYVISITS_DIR . '/' . $js_file;
+
+            if( file_exists( $js_path ) && is_readable( $js_path ) ) {
+                $js_url = plugins_url( $js_file, ODWP_WC_ORDERBYVISITS_FILE );
+                wp_enqueue_script( ODWP_WC_ORDERBYVISITS, $js_url, ['jquery'] );
+                wp_localize_script( ODWP_WC_ORDERBYVISITS, 'odwpwcobv', [
+                    'msg_ok'  => __( 'Random values were generated successfully.', 'odwp-wc-orderbyvisits' ),
+                    'msg_err' => __( 'There was an error while generating random values. Please try again or contact your administrator.', 'odwp-wc-orderbyvisits' ),
+                ] );
+            }
+
+            $css_file = 'assets/css/admin.css';
+            $css_path = ODWP_WC_ORDERBYVISITS_DIR . '/' . $css_file;
+
+            if( file_exists( $css_path ) && is_readable( $css_path ) ) {
+                wp_enqueue_style( ODWP_WC_ORDERBYVISITS, plugins_url( $css_file, ODWP_WC_ORDERBYVISITS_FILE ) );
+            }
+        }
+
+        /**
+         * Write message into WordPress log file.
+         * @param string $msg
+         * @return void
+         * @since 0.5.0
+         */
         public static function log( $msg ) {
             if( ! function_exists( 'odwpdl_write_log') ) {
                 return;
@@ -250,6 +288,8 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
         public static function update_all_products() {
             global $wpdb;
 
+            self::log( 'ODWP_WC_OrderByVisits::update_all_products' );
+
             $integration = self::get_integration();
             $product_ids = new WP_Query( [
                 'post_type' => 'product',
@@ -313,48 +353,6 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
         }
 
         /**
-         * @internal Adds JavaScript for "Generate order" button in integration page.
-         * @return void
-         * @since 0.2.5
-         * @todo Move to file `assets\js\admin.js`!
-         */
-        public function add_admin_footer_js() {
-?>
-<script type="text/javascript">
-jQuery( document ).ready( function( $ ) {
-    $( '#<?php echo ODWP_WC_ORDERBYVISITS ?>odwp-wc-orderbyvisits_generate_btn' ).prop( 'disabled', false ).click( function() {
-        // show progress image and disable the button
-        jQuery( this ).prop( 'disabled', true );
-        jQuery( '#<?php echo ODWP_WC_ORDERBYVISITS ?>_progress_img' ).show();
-        jQuery( '#<?php echo ODWP_WC_ORDERBYVISITS ?>_progress_msg' ).show();
-
-        // since WP 2.8 is `ajaxurl` always defined in the admin header
-        // and points to `admin-ajax.php`
-        jQuery.post(
-            ajaxurl,
-            { 'action': 'odwpwcobv_generate_random' },
-            function( response ) {
-                jQuery( '#<?php echo ODWP_WC_ORDERBYVISITS ?>odwp-wc-orderbyvisits_generate_btn' ).prop( 'disabled', false );
-                jQuery( '#<?php echo ODWP_WC_ORDERBYVISITS ?>_progress_img' ).hide();
-
-                if( response === "OK" ) {
-                    jQuery( '#<?php echo ODWP_WC_ORDERBYVISITS ?>_progress_msg' ).html(
-                        "<?php _e( 'Random values were generated successfully.', 'odwp-wc-orderbyvisits' ) ?>"
-                    );
-                } else {
-                    jQuery( '#<?php echo ODWP_WC_ORDERBYVISITS ?>_progress_msg' ).html(
-                        "<?php _e('There was an error while generating random values. Please try again or contact your administrator.', 'odwp-wc-orderbyvisits' ) ?>"
-                    );
-                }
-            }
-        );
-    } );
-} );
-</script>
-<?php
-        }
-
-        /**
          * @internal Callback for Ajax action on "Generate order" button.
          * @return void
          * @see ODWP_WC_OrderByVisits::add_admin_footer_js()
@@ -363,10 +361,13 @@ jQuery( document ).ready( function( $ ) {
          * @uses wp_die
          */
         function admin_ajax_generate_random() {
+            self::log( 'ODWP_WC_OrderByVisits::admin_ajax_generate_random' );
+
             if( current_user_can( 'edit_posts' ) ) {
                 self::update_all_products();
                 echo 'OK';
             } else {
+                self::log( 'User can not perform this operation.' );
                 echo 'ERR';
             }
 
