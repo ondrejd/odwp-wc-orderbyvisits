@@ -6,7 +6,7 @@ Plugin for [WordPress][1] and [WooCommerce][2] that adds new products _orderby_ 
 
 If your like this plugin and you want to be maintained and improved more frequently consider donation:
 
-[![Make donation](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif "PayPal - The safer, eaisier way to pay online!")][3]
+[![Make donation](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif "PayPal.Me, your link to getting paid")][3]
 
 ## Description
 
@@ -107,7 +107,7 @@ This Source Code is subject to the terms of the [GNU General Public License 3.0]
 
 [1]:https://wordpress.org/
 [2]:https://wordpress.org/plugins/woocommerce/
-[3]:https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ondrejd%40gmail%2ecom&lc=CZ&item_name=ondrejd%2fodwp%2dwc%2dsimplestats&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
+[3]:https://www.paypal.me/ondrejd
 [4]:https://github.com/ondrejd/odwp-wc-simplestats
 [5]:https://wordpress.org/plugins
 [6]:https://www.gnu.org/licenses/gpl-3.0.en.html
