@@ -1,10 +1,10 @@
 <?php
 /**
-* @author Ondřej Doněk, <ondrejd@gmail.com>
-* @link https://github.com/ondrejd/odwp-wc-orderbyvisits for the canonical source repository
-* @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
-* @package odwp-wc-orderbyvisits
-* @since 0.0.1
+ * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @link https://github.com/ondrejd/odwp-wc-orderbyvisits for the canonical source repository
+ * @license https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License 3.0
+ * @package odwp-wc-orderbyvisits
+ * @since 0.0.1
  */
 
 if( ! defined( 'ABSPATH' ) ) {
@@ -291,7 +291,7 @@ if( ! class_exists( 'ODWP_WC_OrderByVisits' ) ) :
         }
 
         /**
-         * @internal Updates order meta key on all WC products.
+         * @internal Updates order meta key on the WC product.
          * @param integer $post_id
          * @param WP_Post $post
          * @return void
